@@ -31,6 +31,18 @@ namespace pavel {
         return *this;
     }
 
+    std::ostream & operator<<(std::ostream & os, const Point& p)
+    {
+        os << "(" << p.x << "," << p.y << ")";
+        return os;
+    }
+
+    std::istream & operator>> (std::istream & is, Point& p)
+    {
+        is >> p.x >> p.y;
+        return is;
+    }
+
     bool operator==(const Point & a, const Point & b){
         return ((a.getX() == b.getX()) && (a.getY() == b.getY()));
     }

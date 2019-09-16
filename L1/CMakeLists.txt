@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(GTest REQUIRED)
 include_directories(src/figures ${GTEST_INCLUDE_DIRS})
 
-set (FIGURES src/figures/point.cpp)
+set (FIGURES src/figures/point.cpp src/figures/shape.cpp)
 
 set (TESTSOURCE src/test.cpp)
 

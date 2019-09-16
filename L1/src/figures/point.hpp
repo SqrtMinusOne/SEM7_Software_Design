@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 namespace pavel {
     class Point {
         public:
@@ -21,6 +23,10 @@ namespace pavel {
             /* Arithmetic */
             Point& operator/(double i);
             Point& operator*(double i);
+
+            /* Stream */
+            friend std::ostream& operator<< (std::ostream& os, const Point& p);
+            friend std::istream& operator>> (std::istream& is, Point& p);
 
         private:
             double x{};

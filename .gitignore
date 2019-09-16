@@ -313,4 +313,8 @@ TSWLatexianTemp*
 *.sta
 
 # Makeindex log files
-*.lpz
+*.lpzmetaculus.com/questions/
+
+# idea
+.idea
+*cmake-build-debug*
