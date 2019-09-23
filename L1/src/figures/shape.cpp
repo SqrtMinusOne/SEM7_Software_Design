@@ -34,11 +34,12 @@ namespace pavel {
         auto p2 = p - center;
         p2.setR(p2.getR() * getZoomCoef());
         p2.setPhi(p2.getPhi() + angle);
+        p2 += center;
         return p;
     }
 
-    std::tuple<Point, Point> Shape::alignRect(Point p1, Point p2) {
-        return std::make_tuple(
+    std::pair<Point, Point> Shape::alignRect(Point p1, Point p2) {
+        return std::make_pair(
                 Point(
                         std::max(p1.getX(), p2.getX()),
                         std::max(p1.getY(), p2.getY())

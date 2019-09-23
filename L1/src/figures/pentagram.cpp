@@ -18,9 +18,9 @@ namespace pavel {
         return points;
     }
 
-    std::tuple<Point, Point> Pentagram::getBorders() {
+    std::pair<Point, Point> Pentagram::getBorders() {
         auto coef = size * zoomCoef;
-        return std::make_tuple(
+        return std::make_pair(
             center + Point {coef, coef},
             center + Point {-coef, -coef}
         );

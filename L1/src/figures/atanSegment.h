@@ -3,16 +3,16 @@
 #include "shape.hpp"
 
 namespace pavel {
-    class Text : public Shape {
+    class AtanSegment : public Shape {
     public:
-        explicit Text(std::string string, Point topRight, Point bottomLeft);
+        explicit AtanSegment(Point topRight, Point bottomLeft, unsigned int precision = 20);
 
         std::pair<Point, Point> getBorders() override;
 
         std::vector<Point> getPath() override;
 
-        [[nodiscard]] const std::string &getString() const;
-        void setString(const std::string &newString);
+        [[nodiscard]] unsigned int getPrecision() const;
+        void setPrecision(unsigned int precision);
 
         void move(Point delta) override;
 
@@ -20,7 +20,7 @@ namespace pavel {
         void print(std::ostream &o) const override;
 
     private:
-        std::string string;
+        unsigned int precision;
         std::pair<Point, Point> borders;
     };
 }

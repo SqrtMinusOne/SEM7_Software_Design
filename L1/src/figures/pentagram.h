@@ -9,7 +9,7 @@ namespace pavel {
     public:
         explicit Pentagram(Point center = Point {0, 0}, double size = 1);
 
-        std::tuple<Point, Point> getBorders() override;
+        std::pair<Point, Point> getBorders() override;
 
         std::vector<Point> getPath() override;
 

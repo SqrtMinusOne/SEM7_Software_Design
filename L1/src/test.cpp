@@ -9,6 +9,8 @@
 
 #include "point.hpp"
 #include "pentagram.h"
+#include "text.h"
+#include "atanSegment.h"
 
 
 TEST(PointTest, BasicPointTest) {
@@ -59,6 +61,20 @@ void checkBorders(pavel::Shape& figure) {
     }
 }
 
+void standartMoveSequence(pavel::Shape& figure) {
+    ASSERT_NO_FATAL_FAILURE(checkBorders(figure));
+
+    figure.move(pavel::Point(99, -200));
+    ASSERT_NO_FATAL_FAILURE(checkBorders(figure));
+
+    figure.rotate(M_PI / 3);
+    figure.scale(14);
+    ASSERT_NO_FATAL_FAILURE(checkBorders(figure));
+
+    figure.scale(0.0001);
+    ASSERT_NO_FATAL_FAILURE(checkBorders(figure));
+}
+
 TEST(ShapeTest, PentagramTest) {
     auto center = pavel::Point{2, 3};
     auto fig = pavel::Pentagram(center, 10);
@@ -82,6 +98,33 @@ TEST(ShapeTest, PentagramTest) {
 
     ASSERT_EQ(fig.getCenter(), center + pavel::Point(2, 5));
 }
+
+TEST(ShapeTest, TextTest){
+    auto text = pavel::Text("Hello",
+            pavel::Point(10, 10),
+            pavel::Point(0, 0));
+    ASSERT_EQ(text.getString(), "Hello");
+    ASSERT_NO_FATAL_FAILURE(checkBorders(text));
+
+    text.setString("Goodbye");
+    ASSERT_EQ(text.getString(), "Goodbye");
+
+    ASSERT_NO_FATAL_FAILURE(standartMoveSequence(text));
+
+}
+
+TEST(ShapeTest, AtanSegmentTest) {
+    auto seg = pavel::AtanSegment(pavel::Point {10, 10}, pavel::Point {0, 0});
+    ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
+    ASSERT_NO_FATAL_FAILURE(standartMoveSequence(seg));
+
+    seg.setPrecision(20000);
+    ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
+    ASSERT_EQ(seg.getPrecision(), 20000);
+    seg.setPrecision(2);
+    ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
+}
+
 
 int main(int argc, char *argv[])
 {

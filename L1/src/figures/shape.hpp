@@ -11,7 +11,7 @@ namespace pavel {
     public:
         explicit Shape(Point center = Point {0, 0}): center(std::move(center)) {}
         virtual ~Shape() = default;
-        [[nodiscard]] virtual std::tuple<Point, Point> getBorders() = 0;
+        [[nodiscard]] virtual std::pair<Point, Point> getBorders() = 0;
         [[nodiscard]] virtual std::vector<Point> getPath() = 0;
 
         virtual void move(Point delta);
@@ -28,7 +28,7 @@ namespace pavel {
         virtual void print(std::ostream &o) const = 0;
 
         Point getScaled(Point p);
-        static std::tuple<Point, Point> alignRect(Point p1, Point p2);
+        static std::pair<Point, Point> alignRect(Point p1, Point p2);
         Point center;
         double angle = 0;
         double zoomCoef = 1;

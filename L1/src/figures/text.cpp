@@ -12,15 +12,13 @@ namespace pavel {
         string = newString;
     }
 
-    std::tuple<Point, Point> Text::getBorders() {
+    std::pair<Point, Point> Text::getBorders() {
         auto [p1, p2] = borders;
         return alignRect(getScaled(p1), getScaled(p2));
     }
 
     std::vector<Point> Text::getPath() {
-        auto [p1, p2] = borders;
-        p1 = getScaled(p1);
-        p2 = getScaled(p2);
+        auto [p1, p2] = getBorders();
         return std::vector<Point> {
             Point {p1.getX(), p1.getY()},
             Point {p1.getX(), p2.getY()},
@@ -29,11 +27,18 @@ namespace pavel {
         };
     }
 
-    void Text::print(std::ostream &o) const {
-       o << " Text: {center: " << getCenter() << "}";
+    void Text::move(Point delta) {
+        Shape::move(delta);
+        borders.first += delta;
+        borders.second += delta;
     }
 
-    Text::Text(std::string string, Point topRight, Point bottomLeft) : string(std::move(string)) {
-        borders = std::make_tuple(topRight, bottomLeft);
+    void Text::print(std::ostream &o) const {
+       o << " Text: {string: " << string <<  "; center: " << getCenter() << "}";
+    }
+
+    Text::Text(std::string string, Point topRight, Point bottomLeft)
+        :string(std::move(string)), borders(std::make_pair(topRight, bottomLeft)) {
+        center = (topRight + bottomLeft) / 2;
     }
 }
