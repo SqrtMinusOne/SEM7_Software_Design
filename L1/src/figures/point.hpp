@@ -20,9 +20,16 @@ namespace pavel {
             void setX(double x_) { x = x_; }
             void setY(double y_) { y = y_; }
 
+            [[nodiscard]] double getR() const;
+            [[nodiscard]] double getPhi() const;
+            void setR(double newR);
+            void setPhi(double newPhi);
+
             /* Arithmetic */
             Point& operator/(double i);
             Point& operator*(double i);
+            Point& operator+=(Point p);
+            Point& operator-=(Point p);
 
             /* Stream */
             friend std::ostream& operator<< (std::ostream& os, const Point& p);

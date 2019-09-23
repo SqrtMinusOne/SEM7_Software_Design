@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cmath>
 
 #include "point.hpp"
 
@@ -41,6 +42,43 @@ namespace pavel {
     {
         is >> p.x >> p.y;
         return is;
+    }
+
+    Point &Point::operator+=(Point p) {
+        x = x + p.getX();
+        y = y + p.getY();
+        return *this;
+    }
+
+    Point &Point::operator-=(Point p) {
+        x = x - p.getX();
+        y = y - p.getY();
+        return *this;
+    }
+
+    double Point::getR() const {
+        return std::sqrt(x*x + y*y);
+    }
+
+    double Point::getPhi() const {
+        if ((x == 0) && (y > 0)) return M_PI/2;
+        if ((x == 0) && (y < 0)) return 3*M_PI/2;
+        if ((x > 0) && (y >= 0)) return std::atan(y/x);
+        if ((x > 0) && (y < 0)) return std::atan(y/x) + 2*M_PI;
+        if (x < 0) return std::atan(y/x) + M_PI;
+        return 0;
+    }
+
+    void Point::setR(double newR) {
+        double phi = getPhi();
+        x = newR * std::cos(phi);
+        y = newR * std::sin(phi);
+    }
+
+    void Point::setPhi(double newPhi) {
+        double r = getR();
+        x = r * std::cos(newPhi);
+        y = r * std::sin(newPhi);
     }
 
     bool operator==(const Point & a, const Point & b){

@@ -8,6 +8,7 @@
 #include "gtest/gtest.h"
 
 #include "point.hpp"
+#include "pentagram.h"
 
 
 TEST(PointTest, BasicPointTest) {
@@ -19,6 +20,8 @@ TEST(PointTest, BasicPointTest) {
     pavel::Point p1 {x, y};
     ASSERT_EQ(p1.getX(), x);
     ASSERT_EQ(p1.getY(), y);
+    ASSERT_GE(p1.getR(), 0);
+    ASSERT_NEAR(p1.getPhi(), M_PI, M_PI);
 
     p1.setX(y);
     p1.setY(x);
@@ -33,11 +36,51 @@ TEST(PointTest, CopyPaste) {
 
     ASSERT_EQ(p1.getX(), p2.getX());
     ASSERT_EQ(p2.getX(), p3.getX());
+    ASSERT_EQ(p1.getPhi(), p2.getPhi());
+    ASSERT_EQ(p1.getR(), p3.getR());
 
     ASSERT_TRUE(p1 == p2);
     auto p4 = p2 + p3;
     auto p5 = p3 * 2;
     ASSERT_TRUE(p4 == p5);
+    ASSERT_GT(p4.getR(), p1.getR());
+    ASSERT_GT(p5.getR(), p1.getR());
+    ASSERT_EQ(p3.getPhi(), p5.getPhi());
+}
+
+void checkBorders(pavel::Shape& figure) {
+    auto [p1, p2] = figure.getBorders();
+    for (pavel::Point& point : figure.getPath()) {
+        ASSERT_LE(point.getX(), p1.getX());
+        ASSERT_LE(point.getY(), p1.getY());
+
+        ASSERT_GE(point.getX(),p2.getX());
+        ASSERT_GE(point.getY(),p2.getY());
+    }
+}
+
+TEST(ShapeTest, PentagramTest) {
+    auto center = pavel::Point{2, 3};
+    auto fig = pavel::Pentagram(center, 10);
+    ASSERT_NO_FATAL_FAILURE(checkBorders(fig));
+
+    auto [ap1, ap2] = fig.getBorders();
+    fig.move(pavel::Point {2, 5});
+    auto [bp1, bp2] = fig.getBorders();
+
+    ASSERT_LT(ap1.getX(), bp1.getX());
+    ASSERT_LT(ap2.getY(), bp2.getY());
+
+    fig.rotate(M_PI * 0.42);
+    fig.scale(13.4);
+    auto [cp1, cp2] = fig.getBorders();
+    ASSERT_NO_FATAL_FAILURE(checkBorders(fig));
+    ASSERT_EQ(fig.getAngle(), M_PI*0.42);
+
+    ASSERT_LT(cp2.getX(), bp2.getX());
+    ASSERT_GT(cp1.getY(), bp1.getY());
+
+    ASSERT_EQ(fig.getCenter(), center + pavel::Point(2, 5));
 }
 
 int main(int argc, char *argv[])
