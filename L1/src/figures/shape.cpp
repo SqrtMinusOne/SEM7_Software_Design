@@ -35,7 +35,7 @@ namespace pavel {
         p2.setR(p2.getR() * getZoomCoef());
         p2.setPhi(p2.getPhi() + angle);
         p2 += center;
-        return p;
+        return p2;
     }
 
     std::pair<Point, Point> Shape::alignRect(Point p1, Point p2) {

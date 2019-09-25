@@ -2,7 +2,7 @@
 #include "atanSegment.h"
 
 namespace pavel {
-    AtanSegment::AtanSegment(Point topRight, Point bottomLeft, unsigned int precision)
+    AtanSegment::AtanSegment(Point bottomLeft, Point topRight, unsigned int precision)
         : precision(precision), borders(std::make_pair(topRight, bottomLeft)) {
         center = (topRight + bottomLeft) / 2;
     }
@@ -18,30 +18,34 @@ namespace pavel {
     }
 
     std::vector<Point> AtanSegment::getPath() {
-        double x = 0;
+        double x = atanStart;
         auto path = std::vector<Point>();
-        auto delta = borders.first - center;
-        double xSize = delta.getX();
-        double ySize = delta.getY();
+        auto boxDelta = borders.first - center;
+        auto delta = (atanStop - atanStart) / precision;
+        double xSize = boxDelta.getX();
+        double ySize = boxDelta.getY();
+
         for (unsigned int i = 0; i <= precision; i++) {
             auto y = std::atan(x) * 2 / M_PI;
             auto p = Point {x * xSize, y * ySize} + center;
             p = getScaled(p);
             path.push_back(p);
+            x += delta;
         }
         return path;
     }
 
     void AtanSegment::print(std::ostream &o) const {
-        o << "AtanSegment {precision:" << precision << "; center:" << center << "}";
+        o << "AtanSegment {precision: " << precision
+        << "; box:" << borders.second << " " << borders.first << "}";
     }
 
     unsigned int AtanSegment::getPrecision() const {
         return precision;
     }
 
-    void AtanSegment::setPrecision(unsigned int precision) {
-        AtanSegment::precision = precision;
+    void AtanSegment::setPrecision(unsigned int newPrecision) {
+        AtanSegment::precision = newPrecision;
     }
 
 }

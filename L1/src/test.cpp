@@ -11,6 +11,7 @@
 #include "pentagram.h"
 #include "text.h"
 #include "atanSegment.h"
+#include "pentagramText.h"
 
 
 TEST(PointTest, BasicPointTest) {
@@ -101,8 +102,8 @@ TEST(ShapeTest, PentagramTest) {
 
 TEST(ShapeTest, TextTest){
     auto text = pavel::Text("Hello",
-            pavel::Point(10, 10),
-            pavel::Point(0, 0));
+                            pavel::Point(0, 0),
+                            pavel::Point(10, 10));
     ASSERT_EQ(text.getString(), "Hello");
     ASSERT_NO_FATAL_FAILURE(checkBorders(text));
 
@@ -114,7 +115,7 @@ TEST(ShapeTest, TextTest){
 }
 
 TEST(ShapeTest, AtanSegmentTest) {
-    auto seg = pavel::AtanSegment(pavel::Point {10, 10}, pavel::Point {0, 0});
+    auto seg = pavel::AtanSegment(pavel::Point{0, 0}, pavel::Point{10, 10}, 0);
     ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
     ASSERT_NO_FATAL_FAILURE(standartMoveSequence(seg));
 
@@ -123,6 +124,10 @@ TEST(ShapeTest, AtanSegmentTest) {
     ASSERT_EQ(seg.getPrecision(), 20000);
     seg.setPrecision(2);
     ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
+}
+
+TEST(ShapeTest, PentagramTextTest) {
+
 }
 
 

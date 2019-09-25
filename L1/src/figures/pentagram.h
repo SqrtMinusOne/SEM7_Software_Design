@@ -5,7 +5,7 @@
 #include "shape.hpp"
 
 namespace pavel {
-    class Pentagram: public Shape {
+    class Pentagram: virtual public Shape {
     public:
         explicit Pentagram(Point center = Point {0, 0}, double size = 1);
 
@@ -14,10 +14,12 @@ namespace pavel {
         std::vector<Point> getPath() override;
 
         [[nodiscard]] double getSize() const;
-    private:
 
+    protected:
+        double size;
+
+    private:
         void print(std::ostream &o) const override;
         [[nodiscard]] std::vector<Point> getPoints();
-        double size;
     };
 }

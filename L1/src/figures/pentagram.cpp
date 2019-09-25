@@ -43,7 +43,7 @@ namespace pavel {
     }
 
     void Pentagram::print(std::ostream &o) const {
-        o << " Pentagram: {center: " << getCenter() << "; size: " << getSize() << "}";
+        o << "Pentagram: {center: " << getCenter() << "; size: " << getSize() << "}";
     }
 
 

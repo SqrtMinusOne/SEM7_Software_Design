@@ -3,9 +3,9 @@
 #include "shape.hpp"
 
 namespace pavel {
-    class Text : public Shape {
+    class Text : virtual public Shape {
     public:
-        explicit Text(std::string string, Point topRight, Point bottomLeft);
+        explicit Text(std::string string, Point bottomLeft, Point topRight);
 
         std::pair<Point, Point> getBorders() override;
 
@@ -22,5 +22,7 @@ namespace pavel {
     private:
         std::string string;
         std::pair<Point, Point> borders;
+
+        std::vector<Point> getRect();
     };
 }

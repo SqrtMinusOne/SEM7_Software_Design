@@ -61,12 +61,17 @@ namespace pavel {
     }
 
     double Point::getPhi() const {
-        if ((x == 0) && (y > 0)) return M_PI/2;
-        if ((x == 0) && (y < 0)) return 3*M_PI/2;
-        if ((x > 0) && (y >= 0)) return std::atan(y/x);
-        if ((x > 0) && (y < 0)) return std::atan(y/x) + 2*M_PI;
-        if (x < 0) return std::atan(y/x) + M_PI;
-        return 0;
+        // if ((x == 0) && (y > 0)) return M_PI/2;
+        // if ((x == 0) && (y < 0)) return 3*M_PI/2;
+        // if ((x > 0) && (y >= 0)) return std::atan(y/x);
+        // if ((x > 0) && (y < 0)) return std::atan(y/x) + 2*M_PI;
+        // if (x < 0) return std::atan(y/x) + M_PI;
+        // if (x > 0) return std::atan2(y, x);
+        // if ((x < 0) && (y >= 0)) return std::atan2(y, x) + M_PI;
+        // if ((x < 0) && (y < 0)) return std::atan2(y, x) - M_PI;
+        // if ((x == 0) && (y > 0)) return M_PI / 2;
+        // if ((x == 0) && (y < 0)) return -M_PI / 2;
+        return std::atan2(y, x);
     }
 
     void Point::setR(double newR) {
@@ -81,6 +86,11 @@ namespace pavel {
         y = r * std::sin(newPhi);
     }
 
+    Point &Point::operator-() {
+        x = -x;
+        y = -y;
+    }
+
     bool operator==(const Point & a, const Point & b){
         return ((a.getX() == b.getX()) && (a.getY() == b.getY()));
     }
@@ -93,4 +103,10 @@ namespace pavel {
         return Point(p1.getX() - p2.getX(), p1.getY() - p2.getY());
     }
 
+    Point operator+(const Point& p1, double a) {
+        return Point{p1.getX() + a, p1.getY() + a};
+    }
+    Point operator-(const Point& p1, double a) {
+        return Point {p1.getX() - a, p1.getY() - a};
+    }
 }

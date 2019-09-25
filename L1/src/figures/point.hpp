@@ -30,6 +30,7 @@ namespace pavel {
             Point& operator*(double i);
             Point& operator+=(Point p);
             Point& operator-=(Point p);
+            Point& operator-();
 
             /* Stream */
             friend std::ostream& operator<< (std::ostream& os, const Point& p);
@@ -43,5 +44,8 @@ namespace pavel {
     bool operator==(const Point& a, const Point& b);
     Point operator+(const Point& p1, const Point& p2);
     Point operator-(const Point& p1, const Point& p2);
+
+    Point operator+(const Point& p1, double a);
+    Point operator-(const Point& p1, double a);
 }
 
