@@ -126,11 +126,6 @@ TEST(ShapeTest, AtanSegmentTest) {
     ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
 }
 
-TEST(ShapeTest, PentagramTextTest) {
-
-}
-
-
 int main(int argc, char *argv[])
 {
     ::testing::InitGoogleTest(&argc, argv);

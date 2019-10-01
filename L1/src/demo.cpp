@@ -1,4 +1,5 @@
 #include <cmath>
+#include <memory>
 #include <iostream>
 #include <iomanip>
 #include <atanSegment.h>
@@ -83,24 +84,16 @@ int main(int argc, char *argv[])
 {
     std::cout.precision(3);
     box("          Korytov Pavel, 6304. LR 1           ", std::cout, RED);
-
-    box("Pentagram test", std::cout, YELLOW);
-    auto p = pavel::Pentagram(pavel::Point {0, 0}, 10);
-    std::cout << p << std::endl;
-    doStuffWithShape(p, std::cout);
-
-    box("Atan test", std::cout, YELLOW);
-    auto a = pavel::AtanSegment(pavel::Point{1, 1}, pavel::Point{10, 10}, 5);
-    std::cout << a << std::endl;
-    doStuffWithShape(a, std::cout);
-
-    box("Text test", std::cout, YELLOW);
-    auto t = pavel::Text("Hello, world", pavel::Point {-5, -5}, pavel::Point {5, 5});
-    std::cout << t << std::endl;
-    doStuffWithShape(t, std::cout);
-
-    box("Pentagram with text test", std::cout, YELLOW);
-    auto pt = pavel::PentagramText("Just fucking kill me", pavel::Point{1, 2}, 10);
-    std::cout << pt << std::endl;
-    doStuffWithShape(pt, std::cout);
+    std::vector<std::shared_ptr<pavel::Shape>> arr {
+            std::make_shared<pavel::Pentagram>(pavel::Pentagram(pavel::Point {0, 0}, 10)),
+            std::make_shared<pavel::AtanSegment>(pavel::AtanSegment(pavel::Point{1, 1}, pavel::Point{10, 10}, 5)),
+            std::make_shared<pavel::Text>(pavel::Text("Hello, world", pavel::Point {-5, -5}, pavel::Point {5, 5})),
+            std::make_shared<pavel::PentagramText>(pavel::PentagramText("Text with pentagram", pavel::Point{1, 2}, 10))
+    };
+    for (auto &ptr: arr) {
+        std::ostringstream s;
+        s << *ptr.get();
+        box(s.str(), std::cout, YELLOW);
+        doStuffWithShape(*ptr.get(), std::cout);
+    }
 }
