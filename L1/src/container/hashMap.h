@@ -9,8 +9,8 @@
 
 namespace pavel {
     template<typename Key>
-    unsigned long defaultHash(Key key) {
-        return static_cast<unsigned long>(key) % SIZE;
+    unsigned int defaultHash(Key key) {
+        return static_cast<unsigned int>(key) % SIZE;
     }
 
     template<typename Value>
@@ -65,7 +65,7 @@ namespace pavel {
     private:
         Key key;
         Value value;
-        HashNode* next;
+        HashNode* next = nullptr;
     };
 
     template <typename Key, typename Value>
@@ -107,7 +107,7 @@ namespace pavel {
         }
 
         bool end(){
-            return currentValue == SIZE;
+            return currentValue >= SIZE - 1;
         }
 
         friend bool operator==(const HashMapIterator<Key, Value>& it1,
@@ -124,7 +124,7 @@ namespace pavel {
             if (currentNode != nullptr) {
                 currentNode = currentNode->getNext();
             }
-            while (currentNode == nullptr && currentValue < SIZE) {
+            while (currentNode == nullptr && (currentValue < SIZE - 1)) {
                 currentValue++;
                 currentNode = hashMap.table[currentValue];
             }
@@ -133,7 +133,7 @@ namespace pavel {
         std::function<int(Value, Value)> compareFunc;
         const HashMap<Key, Value>& hashMap;
         HashNode<Key, Value>* currentNode = nullptr;
-        unsigned long currentValue = 0;
+        unsigned int currentValue = 0;
     };
 
 
@@ -143,27 +143,26 @@ namespace pavel {
         friend class HashMapIterator;
     public:
             explicit HashMap(
-                    const std::function<unsigned long(Key)>& hash = defaultHash<Key>,
+                    const std::function<unsigned int(Key)>& hash = defaultHash<Key>,
                     const std::function<int(Value, Value)>& compare = defaultCompare<Value>)
                     : hashFunc(hash), compareFunc(compare) {
-                table = new HashNode<Key, Value>* [SIZE];
+                table = new HashNode<Key, Value>* [SIZE]();
             }
 
             ~HashMap() {
-                for (unsigned long i = 0; i < SIZE; i++) {
+                for (unsigned int i = 0; i < SIZE; i++) {
                     HashNode<Key, Value> *entry = table[i];
                     while (entry != nullptr) {
                         HashNode<Key, Value> *prev = entry;
                         entry = entry->getNext();
                         delete prev;
                     }
-                    table[i] = nullptr;
                 }
                 delete[] table;
             }
 
             const Value& at(const Key& key) {
-                unsigned long hashValue = hashFunc(key);
+                unsigned int hashValue = hashFunc(key);
                 HashNode<Key, Value>* node = table[hashValue];
 
                 while (node != nullptr) {
@@ -234,7 +233,7 @@ namespace pavel {
             }
 
             HashMapIterator<Key, Value> end(){
-                unsigned long lastHash;
+                unsigned int lastHash;
                 for (lastHash = SIZE - 1; table[lastHash] == nullptr && lastHash > 0; lastHash--);
 
                 if (lastHash > 0) {
@@ -247,11 +246,12 @@ namespace pavel {
             }
 
     private:
-        std::tuple<HashNode<Key, Value>*, HashNode<Key, Value>*, unsigned long>getEntry(const Key& key) {
-            unsigned long hashValue = hashFunc(key);
+        std::tuple<HashNode<Key, Value>*, HashNode<Key, Value>*,
+                unsigned int>getEntry(const Key& key) {
+            unsigned int hashValue = hashFunc(key);
 
             HashNode<Key, Value> *entry = table[hashValue];
-            auto prev = entry;
+            HashNode<Key, Value>* prev = nullptr;
             while (entry != nullptr && !compareFunc(entry->getKey(), key)) {
                 prev = entry;
                 entry = entry->getNext();
@@ -260,7 +260,7 @@ namespace pavel {
         }
 
         HashNode<Key, Value> **table;
-        std::function<unsigned long(Key)> hashFunc;
+        std::function<unsigned int(Key)> hashFunc;
         std::function<int(Value, Value)> compareFunc;
     };
 

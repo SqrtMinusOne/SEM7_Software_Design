@@ -21,8 +21,8 @@ namespace pavel {
     std::pair<Point, Point> Pentagram::getBorders() {
         auto coef = size * zoomCoef;
         return std::make_pair(
-            center + Point {coef, coef},
-            center + Point {-coef, -coef}
+            center - Point {coef, coef},
+            center + Point {coef, coef}
         );
     }
 

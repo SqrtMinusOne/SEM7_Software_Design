@@ -25,7 +25,7 @@ TEST(PointTest, BasicPointTest) {
     ASSERT_EQ(p1.getX(), x);
     ASSERT_EQ(p1.getY(), y);
     ASSERT_GE(p1.getR(), 0);
-    ASSERT_NEAR(p1.getPhi(), M_PI, M_PI);
+    ASSERT_NEAR(p1.getPhi(), 0, M_PI);
 
     p1.setX(y);
     p1.setY(x);
@@ -53,7 +53,7 @@ TEST(PointTest, CopyPaste) {
 }
 
 void checkBorders(pavel::Shape& figure) {
-    auto [p1, p2] = figure.getBorders();
+    auto [p2, p1] = figure.getBorders();
     for (pavel::Point& point : figure.getPath()) {
         ASSERT_LE(point.getX(), p1.getX());
         ASSERT_LE(point.getY(), p1.getY());
@@ -91,7 +91,7 @@ TEST(ShapeTest, PentagramTest) {
 
     fig.rotate(M_PI * 0.42);
     fig.scale(13.4);
-    auto [cp1, cp2] = fig.getBorders();
+    auto [cp2, cp1] = fig.getBorders();
     ASSERT_NO_FATAL_FAILURE(checkBorders(fig));
     ASSERT_EQ(fig.getAngle(), M_PI*0.42);
 
@@ -127,12 +127,16 @@ TEST(ShapeTest, AtanSegmentTest) {
     ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
 }
 
+
+
 TEST(ContainerTest, InitTest) {
     auto m = pavel::HashMap<int, int>();
     m.create(15, 20);
     m.create(20, 30);
+    m.create(30, 40);
     ASSERT_EQ(m.at(15), 20);
     ASSERT_EQ(m.at(20), 30);
+    ASSERT_EQ(m.at(30), 40);
     int val;
     ASSERT_FALSE(m.get(16, val));
     ASSERT_TRUE(m.get(15, val));
@@ -159,11 +163,14 @@ TEST(ContainerTest, IteratorTest2) {
     auto m = pavel::HashMap<int, double>();
     m.create(1, 2);
     m.create(2, 3);
-    m.create(3, 4);
+    m.create(10, 4);
+    m.create(20, 40);
+    m.create(25, 45);
 
     auto it1 = m.begin();
     auto it2 = m.end();
-    bool cmp = it1 != it2;
+    bool cmp = it1 == it2;
+    ASSERT_FALSE(cmp);
 
     for (auto it = m.begin(); it != m.end(); it++) {
         ASSERT_NE(it.value(), 0);

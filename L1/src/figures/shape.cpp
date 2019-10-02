@@ -41,12 +41,12 @@ namespace pavel {
     std::pair<Point, Point> Shape::alignRect(Point p1, Point p2) {
         return std::make_pair(
                 Point(
-                        std::max(p1.getX(), p2.getX()),
-                        std::max(p1.getY(), p2.getY())
-                ),
-                Point(
                         std::min(p1.getX(), p2.getX()),
                         std::min(p1.getY(), p2.getY())
+                ),
+                Point(
+                        std::max(p1.getX(), p2.getX()),
+                        std::max(p1.getY(), p2.getY())
                 )
         );
     }
