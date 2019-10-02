@@ -12,6 +12,7 @@
 #include "text.h"
 #include "atanSegment.h"
 #include "pentagramText.h"
+#include "hashMap.h"
 
 
 TEST(PointTest, BasicPointTest) {
@@ -124,6 +125,50 @@ TEST(ShapeTest, AtanSegmentTest) {
     ASSERT_EQ(seg.getPrecision(), 20000);
     seg.setPrecision(2);
     ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
+}
+
+TEST(ContainerTest, InitTest) {
+    auto m = pavel::HashMap<int, int>();
+    m.create(15, 20);
+    m.create(20, 30);
+    ASSERT_EQ(m.at(15), 20);
+    ASSERT_EQ(m.at(20), 30);
+    int val;
+    ASSERT_FALSE(m.get(16, val));
+    ASSERT_TRUE(m.get(15, val));
+    m.update(15, 25);
+    ASSERT_EQ(m.at(15), 25);
+    m.remove(15);
+    ASSERT_FALSE(m.get(15, val));
+}
+
+TEST(ContainerTest, IteratorTest1) {
+    auto m = pavel::HashMap<int, double>();
+    m.create(1, 2);
+    m.create(2, 3);
+
+    auto iter = pavel::HashMapIterator<int, double>(m);
+    while (!iter.end()) {
+        ASSERT_NE(iter.value(), 0);
+        ASSERT_NE(iter.key(), 0);
+        ++iter;
+    }
+}
+
+TEST(ContainerTest, IteratorTest2) {
+    auto m = pavel::HashMap<int, double>();
+    m.create(1, 2);
+    m.create(2, 3);
+    m.create(3, 4);
+
+    auto it1 = m.begin();
+    auto it2 = m.end();
+    bool cmp = it1 != it2;
+
+    for (auto it = m.begin(); it != m.end(); it++) {
+        ASSERT_NE(it.value(), 0);
+        ASSERT_NE(it.key(), 0);
+    }
 }
 
 int main(int argc, char *argv[])
