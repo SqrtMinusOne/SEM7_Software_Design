@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <cmath>
 
-#include "point.hpp"
+#include "point.h"
 
 namespace pavel {
     void swap(Point &a, Point &b) {

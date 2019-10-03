@@ -13,8 +13,8 @@ namespace pavel {
         return static_cast<unsigned int>(key) % SIZE;
     }
 
-    template<typename Value>
-    bool defaultCompare(const Value& v1, const Value& v2) {
+    template<typename Key>
+    bool defaultCompare(const Key& v1, const Key& v2) {
         return  v1 == v2;
     }
 
@@ -144,7 +144,7 @@ namespace pavel {
     public:
             explicit HashMap(
                     const std::function<unsigned int(Key)>& hash = defaultHash<Key>,
-                    const std::function<int(Value, Value)>& compare = defaultCompare<Value>)
+                    const std::function<int(Key, Key)>& compare = defaultCompare<Key>)
                     : hashFunc(hash), compareFunc(compare) {
                 table = new HashNode<Key, Value>* [SIZE]();
             }
@@ -261,7 +261,7 @@ namespace pavel {
 
         HashNode<Key, Value> **table;
         std::function<unsigned int(Key)> hashFunc;
-        std::function<int(Value, Value)> compareFunc;
+        std::function<int(Key, Key)> compareFunc;
     };
 
 }

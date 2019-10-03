@@ -2,8 +2,8 @@
 #include <cmath>
 #define _USE_MATH_DEFINES
 
-#include "point.hpp"
-#include "shape.hpp"
+#include "point.h"
+#include "shape.h"
 
 namespace pavel {
     const Point &pavel::Shape::getCenter() const {

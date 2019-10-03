@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shape.hpp"
+#include "shape.h"
 
 namespace pavel {
     class Text : virtual public Shape {

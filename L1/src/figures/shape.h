@@ -4,7 +4,7 @@
 #include <vector>
 #include <utility>
 #include <ostream>
-#include "point.hpp"
+#include "point.h"
 
 namespace pavel {
     class Shape {

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <ostream>
-#include "point.hpp"
-#include "shape.hpp"
+#include "point.h"
+#include "shape.h"
 
 namespace pavel {
     class Pentagram: virtual public Shape {

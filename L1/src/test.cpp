@@ -7,7 +7,7 @@
 #include <random>
 #include "gtest/gtest.h"
 
-#include "point.hpp"
+#include "point.h"
 #include "pentagram.h"
 #include "text.h"
 #include "atanSegment.h"
