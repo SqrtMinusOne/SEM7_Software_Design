@@ -130,7 +130,7 @@ namespace pavel {
             }
         }
 
-        std::function<int(Value, Value)> compareFunc;
+        std::function<int(Key, Key)> compareFunc;
         const HashMap<Key, Value>& hashMap;
         HashNode<Key, Value>* currentNode = nullptr;
         unsigned int currentValue = 0;

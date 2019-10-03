@@ -11,6 +11,8 @@
 \lstinputlisting[language=C++, style=num]{#3}
 }
 
+\usepackage{booktabs}
+
 \usepackage{tocloft}
 
 \begin{document}
@@ -27,7 +29,7 @@
         Кафедра МО ЭВМ
 
         \vspace{\fill}
-        \uppercase{Лабораторная работа} \\
+        \uppercase{Лабораторная работа №1} \\
         по дисциплине \enquote{Конструирование ПО} \\
         Тема: Программирование контейнерных классов
     }
@@ -35,7 +37,7 @@
     \vspace{\fill}
     \begin{tabularx}{0.8\textwidth}{l X c r}
         Студент гр. 6304 & & \underline{\hspace{3cm}} & Корытов П.В.\\
-        Преподаватель & & \underline{\hspace{3cm}} & Преподаватель П.П. 
+        Преподаватель & & \underline{\hspace{3cm}} & Спицын А.В.
     \end{tabularx}
 
     \vspace{1cm}
@@ -43,14 +45,13 @@
     \the\year{}
 \end{titlepage}
 \newpage
-\begingroup\singlespacing{}
 \tableofcontents{}
-\endgroup
+
 \newpage
 
 \section{Постановка задачи}
 \subsection{Цель работы}
-\lipsum[1]
+Изучение создания полиморфной иерархии в классов. Разработка контейнера с внешним итератором; изучение контейнеров STL.\@ Изучение отладки и профилирования программ на C++
 
 \subsection{Формулировка задания}
 \begin{enumerate}
@@ -68,6 +69,12 @@
             \item Просмотреть иерархию классов и найти примеры множественного наследования.
             \item Расставить точки превывания программы (Break Points) и протестировать её работу.
             \item Для выяснения текущих значений переменных, использовать механизм ``Watch variable''.
+        \end{itemize}
+        \item Исследование программы при помощи Profiler
+        \begin{itemize}
+            \item Изучить возможности оптимизации программы в интегрированной среде, в отчете перечислить и объяснить параметры (опции), влияющие на оптимизацию.
+            \item Построить несколько вариантов, отличающихся способом оптимизации, проанализировать время работы и объем памяти полученных вариантов. С помощью Profiler определить наиболее долго выполнявшиеся функции. С помощью Profiler определить не исполнявшиеся участки программы.
+            \item Изменить текст main так, чтобы выполнялись все участки программы.
         \end{itemize}
     \end{enumerate}
     \item Применение стандартной библиотеки STL
@@ -142,32 +149,111 @@
     Приведены скриншоты, сделанные в ходе отладки:
     \begin{itemize}
         \item Рисунок~\ref{img:shapes:breakpoint} --- остановка на breakpoint'e
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=\textwidth]{./img/S003.jpg}
+            \caption{Остановка на breakpoint'е}%
+            \label{img:shapes:breakpoint}
+        \end{figure}
         \item Рисунок~\ref{img:shapes:eval} --- оценка выражения
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{./img/S004.jpg}
+            \caption{Оценка значения выражения}%
+            \label{img:shapes:eval}
+        \end{figure}
+        \item Рисунок~\ref{img:shapes:leak} --- локализация утечки памяти
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=\textwidth]{./img/S005.jpg}
+            \caption{Valgrind обнаружил утечку памяти}%
+            \label{img:shapes:leak}
+        \end{figure}
     \end{itemize}
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=\textwidth]{./img/S003.jpg}
-        \caption{Остановка на breakpoint'е}%
-        \label{img:shapes:breakpoint}
-    \end{figure}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.7\textwidth]{./img/S004.jpg}
-        \caption{Оценка значения выражения}%
-        \label{img:shapes:eval}
-    \end{figure}
-    
-    
-    
-    
+    \FloatBarrier{}
 \end{enumerate}
 
-% \section*{Приложение А}
-% \addonsubheader{Код shape.h}
-% \phantomsection{}\label{add:shape:h}
-% \addcontentsline{toc}{section}{Приложение А}
-% \lstinputlisting[language=C++, style=num]{../src/figures/shape.h}
+\FloatBarrier{}
+\subsection{Применение стандартной библиотеки STL}
+\begin{itemize}
+    \item Составлено консольное приложение, демонстрирующее различия между различными контенерами STL.\@ Код в demo2.cpp.
+    
+    Установлено, что хотя интерфейсы контейнеров очень похожи, эффективность различных операций в них различается.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{./img/S010.jpg}
+        \caption{Результаты запуска демострационной программы}%
+        \label{img:stl:demo}
+    \end{figure}
+
+    Некоторые различия между vector, list и deque указаны в таблице~\ref{tab:stl:diff}.
+    \begin{table}[h]
+        \centering
+        \caption{Различия между контейнерами}
+        \begin{tabular}{@{}llll@{}}
+        \toprule
+        \textbf{Метод} & \textit{std::vector} & \textit{std::list} & \textit{std::deque} \\ \midrule
+        Доступ по индексу & + & --- & + \\
+        Доступ с начала / конца & + & + & + \\ \midrule
+        Добавление элементов в конец & + & + & + \\
+        Добавление элементов в начало & --- & + & + \\
+        Изменение элементов по индексу & + & --- & + \\ \bottomrule
+        \end{tabular}%
+        \label{tab:stl:diff}
+    \end{table}
+
+\end{itemize}
+
+\subsection{Реализация нового шаблона контейнера}
+\begin{enumerate}
+    \item Создан и покрыт тестами класс HashMap, а также вспомогательные классы HashNode и HashMapIterator. Коды представлены в файле hashMap.h.
+    UML-диаграмма созданных классов представлена на рисунке~\ref{img:uml:container}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{./img/container_classes_uml.png}
+        \caption{UML-диаграмма классов контейнера}%
+        \label{img:uml:container}
+    \end{figure}
+    \item Создано приложение, заполняющее созданный контейнер графическими фигурами. Код в demo3.cpp. Запуск демонстрацинной программы представлен на рисунке~\ref{img:map:demo}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{./img/S006.jpg}
+        \caption{Запуск демострации HashMap}%
+        \label{img:map:demo}
+    \end{figure}
+
+    \item Изучение профилировщика\\
+    Использована обёртка над профилировщиком Perf, встроенная в CLion.
+
+    На рисунке~\ref{img:map:calltree} --- дерево вызовов, на~\ref{img:map:methods} --- вызываемые методы
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{./img/S008.jpg}
+        \caption{Дерево вызовов}%
+        \label{img:map:calltree}
+    \end{figure}
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{./img/S009.jpg}
+        \caption{Список вызываемых методов}%
+        \label{img:map:methods}
+    \end{figure}
+    
+    
+
+    
+\end{enumerate}
+\section{Выводы}
+Протестированы и изучены классы контейнеров стандартной библиотеки STL.\@ 
+
+Написаны классы графических объектов, поддерживающие полиморфизм. Изучено виртуальное наследование для разрешения проблем, связанных с ромбовидным наследованием.
+
+Написан класс-контейнер --- хэш-таблица на базе списка.
+
+
 \Addon{Приложение А}{Код shape.h}{../src/figures/shape.h}
 \Addon{Приложение Б}{Код shape.cpp}{../src/figures/shape.cpp}
 \Addon{Приложение В}{Код point.h}{../src/figures/point.h}
@@ -185,5 +271,9 @@
 \Addon{Приложение П}{Код colors.h}{../src/colors.h}
 \Addon{Приложение Р}{Код myCli.h}{../src/cli/myCli.h}
 \Addon{Приложение С}{Код myCli.cpp}{../src/cli/myCli.cpp}
+\Addon{Приложение Т}{Код demo2.cpp}{../src/demo2.cpp}
+\Addon{Приложение У}{Код hashMap.h}{../src/container/hashMap.h}
+\Addon{Приложение Ф}{Код demo3.cpp}{../src/demo3.cpp}
+
 
 \end{document}
