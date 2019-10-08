@@ -2,7 +2,7 @@
 #include "pentagram.h"
 
 namespace pavel {
-    class PentagramText : public Text, public Pentagram {
+    class PentagramText : virtual public Text, virtual public Pentagram {
     public:
         explicit PentagramText(std::string string, Point center = Point {0, 0}, double size = 1);
 

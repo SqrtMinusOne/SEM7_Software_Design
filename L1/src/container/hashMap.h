@@ -1,5 +1,6 @@
 #pragma once
 
+#include "exception.h"
 #include <algorithm>
 #include <iostream>
 #include <functional>
@@ -171,14 +172,14 @@ namespace pavel {
                     }
                     node = node->getNext();
                 }
-                throw std::out_of_range("Элемент не найден");
+                throw ElementNotFoundException<Key>(key);
             }
 
             bool get(const Key& key, Value& value) {
                 try {
                     value = at(key);
                     return true;
-                } catch (std::out_of_range& outOfRange) {
+                } catch (ElementNotFoundException<Key>& ex) {
                     return false;
                 }
             }
@@ -194,7 +195,7 @@ namespace pavel {
                         prev->setNext(entry);
                     }
                 } else {
-                    throw std::invalid_argument("Запись с ключом уже существует");
+                    throw ElementAlreadyExistsException<Key, Value>(key, entry->getValue());
                 }
             }
 
@@ -217,7 +218,7 @@ namespace pavel {
                 auto [prev, entry, hashValue] = getEntry(key);
 
                 if (entry == nullptr) {
-                    throw std::out_of_range("Элемент с ключом не существует");
+                    throw ElementNotFoundException<Key>(key);
                 } else {
                     if (prev == nullptr) {
                         table[hashValue] = entry->getNext();

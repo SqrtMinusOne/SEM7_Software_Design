@@ -9,6 +9,7 @@ include_directories(
         src/container
         src
         src/cli
+        src/exceptions
         ${GTEST_INCLUDE_DIRS})
 
 set (FIGURES

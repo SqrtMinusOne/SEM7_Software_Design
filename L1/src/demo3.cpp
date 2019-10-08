@@ -7,6 +7,7 @@
 #include "point.h"
 #include "colors.h"
 #include "myCli.h"
+#include "exception.h"
 
 #include <iostream>
 #include <memory>
@@ -41,18 +42,18 @@ int main(int argc, char *argv[]) {
     std::cout << GREEN << "Исключения" << RESET << std::endl;
     try{
         map.remove(2);
-    } catch (std::out_of_range& ex) {
-        std::cout << ex.what() << std::endl;
+    } catch (pavel::Exception& ex) {
+        std::cout << "Поймано исключение: " << ex << std::endl;
     }
     try{
         auto a = map.at(2);
-    } catch (std::out_of_range& ex) {
-        std::cout << ex.what() << std::endl;
+    } catch (pavel::Exception& ex) {
+        std::cout << "Поймано исключение: " << ex << std::endl;
     }
     try{
         map.create(3, std::make_shared<pavel::Pentagram>(pavel::Pentagram()));
-    } catch (std::invalid_argument& ex) {
-        std::cout << ex.what() << std::endl;
+    } catch (pavel::Exception& ex) {
+        std::cout << "Поймано исключение: " << ex << std::endl;
     }
 
 }

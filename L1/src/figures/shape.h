@@ -5,6 +5,7 @@
 #include <utility>
 #include <ostream>
 #include "point.h"
+#include "exception.h"
 
 namespace pavel {
     class Shape {

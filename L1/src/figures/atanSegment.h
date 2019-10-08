@@ -3,7 +3,7 @@
 #include "shape.h"
 
 namespace pavel {
-    class AtanSegment : public Shape {
+    class AtanSegment : virtual public Shape {
     public:
         explicit AtanSegment(Point bottomLeft, Point topRight, unsigned int precision = 20);
 

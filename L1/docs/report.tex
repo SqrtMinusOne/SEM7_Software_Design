@@ -6,13 +6,10 @@
 \newcommand{\Addon}[3]{%
 \section*{#1}
 \addonsubheader{#2}
-\phantomsection{}
-\addcontentsline{toc}{section}{#1. #2}
 \lstinputlisting[language=C++, style=num]{#3}
 }
 
 \usepackage{booktabs}
-
 \usepackage{tocloft}
 
 \begin{document}
@@ -59,9 +56,9 @@
 
 \subsection{Формулировка задания}
 \begin{enumerate}
-    \item Разработка программ
+    \item Разработка программ.
     \begin{enumerate}
-        \item Настройка среды. Выполнение индивидуального задания
+        \item Настройка среды. Выполнение индивидуального задания.
         \begin{itemize}
             \item Индивидуальное задание: Написать классы для создания графических объектов. Классы должны иметь общий абстрактный базовый класс Shape с чистыми виртуальными функциями.
             \item Необходимо использовать множественное наследование. В классах должны быть предусмотрены виртуальные функции для вывода информации об объектах в поток, а Shape должен иметь дружественный перегруженный оператор <<.
@@ -69,23 +66,23 @@
         \end{itemize}
         \item Работа в режиме отладки.
         \begin{itemize}
-            \item Запустить программу и просмотреть ее работу по шагам (Build -> Start Debug -> Go)
+            \item Запустить программу и просмотреть ее работу по шагам (Build -> Start Debug -> Go).
             \item Просмотреть иерархию классов и найти примеры множественного наследования.
             \item Расставить точки превывания программы (Break Points) и протестировать её работу.
             \item Для выяснения текущих значений переменных, использовать механизм ``Watch variable''.
         \end{itemize}
-        \item Исследование программы при помощи Profiler
+        \item Исследование программы при помощи Profiler.
         \begin{itemize}
             \item Изучить возможности оптимизации программы в интегрированной среде, в отчете перечислить и объяснить параметры (опции), влияющие на оптимизацию.
             \item Построить несколько вариантов, отличающихся способом оптимизации, проанализировать время работы и объем памяти полученных вариантов. С помощью Profiler определить наиболее долго выполнявшиеся функции. С помощью Profiler определить не исполнявшиеся участки программы.
             \item Изменить текст main так, чтобы выполнялись все участки программы.
         \end{itemize}
     \end{enumerate}
-    \item Применение стандартной библиотеки STL
+    \item Применение стандартной библиотеки STL.\@
     \begin{enumerate}
         \item Составить консольные приложения, демонстрирующие основные операции с контейнерами и итераторами STL.\@
         \begin{itemize}
-            \item Заполняя 3 контейнера строками из <cstring> или другими элементами, продемонстрировать отличия
+            \item Заполняя 3 контейнера строками из <cstring> или другими элементами, продемонстрировать отличия:
             \begin{itemize}
                 \item последовательностей (vector, list, dequeue);
                 \item адаптеров последовательностей (stack, queue, priority\_queue);
@@ -105,28 +102,30 @@
 
 \subsection{Индивидуальное задание}
 \begin{itemize}
-    \item Фигуры --- прямоугольник, кусок арктангенса, текст, текст в прямоугольнике
-    \item Контейнер --- хэш-таблица на базе списка
+    \item Фигуры --- прямоугольник, кусок арктангенса, текст, текст в прямоугольнике.
+    \item Контейнер --- хэш-таблица на базе списка.
 \end{itemize}
 
 \section{Ход работы}
-Использованное ПО
+Использованное ПО:
 \begin{enumerate}
-    \item \textbf{JetBrains CLion} --- IDE для C/C++
-    \item \textbf{Valgrind} --- проверка утечек памяти
-    \item \textbf{Google Test} --- юнит-тесты для C++ 
-    \item \textbf{Jest} --- профилировщик для C++
-    \item \XeLaTeX{}, \textbf{neovim} --- сборка и написание отчёта 
+    \item \textbf{JetBrains CLion} --- IDE для C/C++~\cite{clion};
+    \item \textbf{Valgrind} --- проверка утечек памяти;
+    \item \textbf{Google Test} --- юнит-тесты для C++;
+    \item \textbf{Jest} --- профилировщик для C++;
+    \item \XeLaTeX{}, \textbf{neovim} --- сборка и написание отчёта~\cite{latex}.
 \end{enumerate}
 
 \subsection{Создание классов фигур}
 \begin{enumerate}
     \item Создан класс Point (файлы point.h, point.cpp). Он содержит основные математические операции по работе с точками, например конвертацию координат.
     \item Создан общий абстрактный класс Shape (shape.h, shape.cpp). Он содержит базовые методы, необходимые всем фигурам, несколько виртуальных и чистых виртуальных методов.\\
-    Оператор вывода в поток не виртуальный, т.к. дружественные методы не наследуются. Вместо этого в операторе вызывается чистый виртуальный метод print, который является protected и может наследоваться.
+        Оператор вывода в поток не виртуальный, т.к. дружественные методы не наследуются. Вместо этого в операторе вызывается чистый виртуальный метод print, который является protected и может наследоваться.~\cite{idioms}
     \item Написаны классы Pentagram, AtanSegment, Text, PentagramText. Класс PentagramText наследуется от Pentagram и Text. UML-диаграмма классов представлена на рисунке~\ref{img:uml:shapes}.
 
-    Исходные коды представлены в приложениях в соответствующих файлах
+    Исходные коды представлены в приложениях в соответствующих файлах.
+
+    В процессе использованы возможности C++11/C++14/C++17, такие как \texttt{[[nodiscard]]}, лямбда-выражения, выведение типов (auto), shared\_ptr и т.п.~\cite{cppwiki}~\cite{moderncpp}
     \begin{figure}[h]
         \centering
         \includegraphics[width=\textwidth]{./img/classes_uml.png}
@@ -138,6 +137,7 @@
 \FloatBarrier{}
 \subsection{Проверка созданных классов}
 \begin{enumerate}
+    \item Для сборки использована система CMake~\cite{cmake}.
     \item Для тестирования созданных классов подключен фреймворк GoogleTest, написан ряд юнит-тестов. Исходный код тестов находится в test.cpp.\\
     Процесс запуска юнит-тестов представлен на~\ref{img:shapes:tests}
     \begin{figure}[h]
@@ -153,10 +153,10 @@
         \caption{Запуск преобразований}%
         \label{img:shapes:demo}
     \end{figure}
-    
+
     Преобразования над всеми фигурами выполнены корректно.
 
-    \item Для отладки использована обертка над gdb, встроенная в CLion и Valgrind для контроля над утечками памяти.
+    \item Для отладки использована обертка над gdb, встроенная в CLion и Valgrind для контроля над утечками памяти.~\cite{clion}
     Приведены скриншоты, сделанные в ходе отладки:
     \begin{itemize}
         \item Рисунок~\ref{img:shapes:breakpoint} --- остановка на breakpoint'e
@@ -189,7 +189,7 @@
 \begin{itemize}
     \item Составлено консольное приложение, демонстрирующее различия между различными контенерами STL.\@ Код в demo2.cpp.
     
-    Установлено, что хотя интерфейсы контейнеров очень похожи, эффективность различных операций в них различается.
+        Установлено, что интерфейсы контейнеров очень похожи, эффективность различных операций в различается.~\cite{cppref}
 
     \begin{figure}[h]
         \centering
@@ -228,7 +228,7 @@
     UML-диаграмма созданных классов представлена на рисунке~\ref{img:uml:container}
     \begin{figure}[h]
         \centering
-        \includegraphics[width=\textwidth]{./img/container_classes_uml.png}
+        \includegraphics[width=0.85\textheight,angle=90]{./img/container_classes_uml.png}
         \caption{UML-диаграмма классов контейнера}%
         \label{img:uml:container}
     \end{figure}
@@ -246,9 +246,9 @@
     \end{figure}
 
     \item Изучение профилировщика\\
-    Использована обёртка над профилировщиком Perf, встроенная в CLion.
+        Использована обёртка над профилировщиком Perf, встроенная в CLion.~\cite{clion}
 
-    На рисунке~\ref{img:map:calltree} --- дерево вызовов, на~\ref{img:map:methods} --- вызываемые методы
+    На рисунке~\ref{img:map:calltree} --- дерево вызовов, на~\ref{img:map:methods} --- вызываемые методы.
 
     \begin{figure}[h]
         \centering
@@ -266,7 +266,7 @@
     
 \end{enumerate}
 \section{Выводы}
-Протестированы и изучены классы контейнеров стандартной библиотеки STL.\@ 
+Протестированы и изучены классы контейнеров стандартной библиотеки STL.\@
 
 Написаны классы графических объектов, поддерживающие полиморфизм. Изучено виртуальное наследование для разрешения проблем, связанных с ромбовидным наследованием.
 
@@ -274,6 +274,38 @@
 
 Исследованы возможности тестирования, отладки и профилировки программ на C++.
 
+\begin{thebibliography}{8}
+
+\bibitem{shlee}
+    Макс Шлее. Профессиональное программирование на C++. СПб: БХВ-Петербург, 2018, 1073 с.
+
+\bibitem{cppwiki}
+    C++ Programming // Wikibooks.\\ URL:\@ \detokenize{https://en.wikibooks.org/wiki/C++_Programming} (дата обращения: 08.10.2019)
+
+\bibitem{idioms}
+    More C++ Idioms // Wikibooks.\\ URL:\@ \detokenize{https://en.wikibooks.org/wiki/More_C++_Idioms} (дата обращения: 08.10.2019)
+
+\bibitem{cmake}
+    CMake Refence Documentation // CMake.\\ URL:\@ \detokenize{https://cmake.org/cmake/help/v3.15/} (дата обращения: 08.10.2019)
+
+\bibitem{cppref}
+    C++ Reference // C++ Reference. URL:\@ \detokenize{https://en.cppreference.com/w/} (дата обращения: 08.10.2019)
+
+\bibitem{clion}
+    Clion Learning Center // JetBrains\\
+    URL:\@ \detokenize{https://www.jetbrains.com/clion/learning-center/} (дата обращения: 08.10.2019)
+
+\bibitem{moderncpp}
+    AnthonyCalandra/modern-cpp-features // GitHub. \\ URL:\@ \detokenize{https://github.com/AnthonyCalandra/modern-cpp-features} (дата обращения: 08.10.2019)
+
+\bibitem{latex}
+    \LaTeX{} // Wikibooks.\\URL:\@ \detokenize{https://en.wikibooks.org/wiki/LaTeX} (дата обращения: 08.10.2019)
+
+\end{thebibliography}
+\addcontentsline{toc}{section}{Список литературы}
+
+\section*{Приложения}
+\phantomsection{}\addcontentsline{toc}{section}{Приложения}
 \Addon{Приложение А}{Код shape.h}{../src/figures/shape.h}
 \Addon{Приложение Б}{Код shape.cpp}{../src/figures/shape.cpp}
 \Addon{Приложение В}{Код point.h}{../src/figures/point.h}
@@ -294,6 +326,7 @@
 \Addon{Приложение Т}{Код demo2.cpp}{../src/demo2.cpp}
 \Addon{Приложение У}{Код hashMap.h}{../src/container/hashMap.h}
 \Addon{Приложение Ф}{Код demo3.cpp}{../src/demo3.cpp}
+\Addon{Приложение Х}{Код exception.h}{../src/exceptions/exception.h}
 
 
 \end{document}
