@@ -21,7 +21,7 @@ TEST(PointTest, BasicPointTest) {
     auto x = urd(gen);
     auto y = urd(gen);
 
-    pavel::Point p1 {x, y};
+    Point p1 {x, y};
     ASSERT_EQ(p1.getX(), x);
     ASSERT_EQ(p1.getY(), y);
     ASSERT_GE(p1.getR(), 0);
@@ -34,7 +34,7 @@ TEST(PointTest, BasicPointTest) {
 }
 
 TEST(PointTest, CopyPaste) {
-    pavel::Point p1 {2, 3};
+    Point p1 {2, 3};
     auto p2 = p1;
     auto p3(p2);
 
@@ -52,9 +52,9 @@ TEST(PointTest, CopyPaste) {
     ASSERT_EQ(p3.getPhi(), p5.getPhi());
 }
 
-void checkBorders(pavel::Shape& figure) {
+void checkBorders(Shape& figure) {
     auto [p2, p1] = figure.getBorders();
-    for (pavel::Point& point : figure.getPath()) {
+    for (Point& point : figure.getPath()) {
         ASSERT_LE(point.getX(), p1.getX());
         ASSERT_LE(point.getY(), p1.getY());
 
@@ -63,10 +63,10 @@ void checkBorders(pavel::Shape& figure) {
     }
 }
 
-void standartMoveSequence(pavel::Shape& figure) {
+void standartMoveSequence(Shape& figure) {
     ASSERT_NO_FATAL_FAILURE(checkBorders(figure));
 
-    figure.move(pavel::Point(99, -200));
+    figure.move(Point(99, -200));
     ASSERT_NO_FATAL_FAILURE(checkBorders(figure));
 
     figure.rotate(M_PI / 3);
@@ -78,12 +78,12 @@ void standartMoveSequence(pavel::Shape& figure) {
 }
 
 TEST(ShapeTest, PentagramTest) {
-    auto center = pavel::Point{2, 3};
-    auto fig = pavel::Pentagram(center, 10);
+    auto center = Point{2, 3};
+    auto fig = Pentagram(center, 10);
     ASSERT_NO_FATAL_FAILURE(checkBorders(fig));
 
     auto [ap1, ap2] = fig.getBorders();
-    fig.move(pavel::Point {2, 5});
+    fig.move(Point {2, 5});
     auto [bp1, bp2] = fig.getBorders();
 
     ASSERT_LT(ap1.getX(), bp1.getX());
@@ -98,13 +98,13 @@ TEST(ShapeTest, PentagramTest) {
     ASSERT_LT(cp2.getX(), bp2.getX());
     ASSERT_GT(cp1.getY(), bp1.getY());
 
-    ASSERT_EQ(fig.getCenter(), center + pavel::Point(2, 5));
+    ASSERT_EQ(fig.getCenter(), center + Point(2, 5));
 }
 
 TEST(ShapeTest, TextTest){
-    auto text = pavel::Text("Hello",
-                            pavel::Point(0, 0),
-                            pavel::Point(10, 10));
+    auto text = Text("Hello",
+                            Point(0, 0),
+                            Point(10, 10));
     ASSERT_EQ(text.getString(), "Hello");
     ASSERT_NO_FATAL_FAILURE(checkBorders(text));
 
@@ -116,7 +116,7 @@ TEST(ShapeTest, TextTest){
 }
 
 TEST(ShapeTest, AtanSegmentTest) {
-    auto seg = pavel::AtanSegment(pavel::Point{0, 0}, pavel::Point{10, 10}, 0);
+    auto seg = AtanSegment(Point{0, 0}, Point{10, 10}, 0);
     ASSERT_NO_FATAL_FAILURE(checkBorders(seg));
     ASSERT_NO_FATAL_FAILURE(standartMoveSequence(seg));
 
@@ -130,7 +130,7 @@ TEST(ShapeTest, AtanSegmentTest) {
 
 
 TEST(ContainerTest, InitTest) {
-    auto m = pavel::HashMap<int, int>();
+    auto m = HashMap<int, int>();
     m.create(15, 20);
     m.create(20, 30);
     m.create(30, 40);
@@ -147,11 +147,11 @@ TEST(ContainerTest, InitTest) {
 }
 
 TEST(ContainerTest, IteratorTest1) {
-    auto m = pavel::HashMap<int, double>();
+    auto m = HashMap<int, double>();
     m.create(1, 2);
     m.create(2, 3);
 
-    auto iter = pavel::HashMapIterator<int, double>(m);
+    auto iter = HashMapIterator<int, double>(m);
     while (!iter.end()) {
         ASSERT_NE(iter.value(), 0);
         ASSERT_NE(iter.key(), 0);
@@ -160,7 +160,7 @@ TEST(ContainerTest, IteratorTest1) {
 }
 
 TEST(ContainerTest, IteratorTest2) {
-    auto m = pavel::HashMap<int, double>();
+    auto m = HashMap<int, double>();
     m.create(1, 2);
     m.create(2, 3);
     m.create(10, 4);

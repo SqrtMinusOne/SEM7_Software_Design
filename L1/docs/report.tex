@@ -1,7 +1,11 @@
 \documentclass[a4paper, 14pt]{extarticle}
-\usepackage{./generalPreamble}
-\usepackage{./longReportFormat}
-\usepackage{./sourceCode}
+\usepackage{./styles/generalPreamble}
+\usepackage{./styles/longReportFormat}
+\usepackage{./styles/sourceCode}
+\usepackage{./styles/nonFancyTOC}
+\usepackage{./styles/gostBibTex}
+
+\bibliography{bibliography}
 
 \newcommand{\Addon}[3]{%
 \section*{#1}
@@ -26,7 +30,8 @@
         Кафедра МО ЭВМ
 
         \vspace{\fill}
-        \uppercase{Лабораторная работа №1} \\
+        \uppercase{Отчёт}\\
+        по лабораторной работе №1\\
         по дисциплине \enquote{Конструирование ПО} \\
         Тема: Программирование контейнерных классов
     }
@@ -41,6 +46,7 @@
     Санкт-Петербург \\
     \the\year{}
 \end{titlepage}
+
 \newpage
 \tableofcontents{}
 
@@ -52,7 +58,7 @@
 
 Изучение контейнеров стандартной библиотеки STL C++. Создание сообственного контейнера с внешним итератором.
 
-Исследования возможностей отладки и профилироовки C++.
+Исследования возможностей отладки и профилировки C++.
 
 \subsection{Формулировка задания}
 \begin{enumerate}
@@ -74,7 +80,7 @@
         \item Исследование программы при помощи Profiler.
         \begin{itemize}
             \item Изучить возможности оптимизации программы в интегрированной среде, в отчете перечислить и объяснить параметры (опции), влияющие на оптимизацию.
-            \item Построить несколько вариантов, отличающихся способом оптимизации, проанализировать время работы и объем памяти полученных вариантов. С помощью Profiler определить наиболее долго выполнявшиеся функции. С помощью Profiler определить не исполнявшиеся участки программы.
+            \item Построить несколько вариантов, отличающихся способом оптимизации, проанализировать время работы и объем памяти полученных вариантов. С помощью Profiler определить наиболее долго выполнявшиеся функции.
             \item Изменить текст main так, чтобы выполнялись все участки программы.
         \end{itemize}
     \end{enumerate}
@@ -113,7 +119,8 @@
     \item \textbf{Valgrind} --- проверка утечек памяти;
     \item \textbf{Google Test} --- юнит-тесты для C++;
     \item \textbf{Jest} --- профилировщик для C++;
-    \item \XeLaTeX{}, \textbf{neovim} --- сборка и написание отчёта~\cite{latex}.
+    \item \XeLaTeX{}, \textbf{neovim} --- сборка и написание отчёта~\cite{latex}
+    \item \textbf{BibLaTeX} --- система управления библиографией
 \end{enumerate}
 
 \subsection{Создание классов фигур}
@@ -125,7 +132,8 @@
 
     Исходные коды представлены в приложениях в соответствующих файлах.
 
-    В процессе использованы возможности C++11/C++14/C++17, такие как \texttt{[[nodiscard]]}, лямбда-выражения, выведение типов (auto), shared\_ptr и т.п.~\cite{cppwiki}~\cite{moderncpp}
+    В процессе использованы возможности C++11/C++14/C++17, такие как \texttt{[[nodiscard]]}, лямбда-выражения, выведение типов (auto), shared\_ptr и т.п.\\
+~\cite{cppwiki}~\cite{moderncpp}~\cite{stroustrup}
     \begin{figure}[h]
         \centering
         \includegraphics[width=\textwidth]{./img/classes_uml.png}
@@ -189,7 +197,7 @@
 \begin{itemize}
     \item Составлено консольное приложение, демонстрирующее различия между различными контенерами STL.\@ Код в demo2.cpp.
     
-        Установлено, что интерфейсы контейнеров очень похожи, эффективность различных операций в различается.~\cite{cppref}
+        Установлено, что интерфейсы контейнеров очень похожи, эффективность различных операций в различается.~\cite{shlee}~\cite{cppref}
 
     \begin{figure}[h]
         \centering
@@ -268,40 +276,13 @@
 \section{Выводы}
 Протестированы и изучены классы контейнеров стандартной библиотеки STL.\@
 
-Написаны классы графических объектов, поддерживающие полиморфизм. Изучено виртуальное наследование для разрешения проблем, связанных с ромбовидным наследованием.
+Написаны классы графических объектов, поддерживающие полиморфизм. Изучено виртуальное наследование для разрешения проблем, связанных с ромбовидным наследованием.{}
 
 Написан класс-контейнер --- хэш-таблица на базе списка.
 
 Исследованы возможности тестирования, отладки и профилировки программ на C++.
 
-\begin{thebibliography}{8}
-
-\bibitem{shlee}
-    Макс Шлее. Профессиональное программирование на C++. СПб: БХВ-Петербург, 2018, 1073 с.
-
-\bibitem{cppwiki}
-    C++ Programming // Wikibooks.\\ URL:\@ \detokenize{https://en.wikibooks.org/wiki/C++_Programming} (дата обращения: 08.10.2019)
-
-\bibitem{idioms}
-    More C++ Idioms // Wikibooks.\\ URL:\@ \detokenize{https://en.wikibooks.org/wiki/More_C++_Idioms} (дата обращения: 08.10.2019)
-
-\bibitem{cmake}
-    CMake Refence Documentation // CMake.\\ URL:\@ \detokenize{https://cmake.org/cmake/help/v3.15/} (дата обращения: 08.10.2019)
-
-\bibitem{cppref}
-    C++ Reference // C++ Reference. URL:\@ \detokenize{https://en.cppreference.com/w/} (дата обращения: 08.10.2019)
-
-\bibitem{clion}
-    Clion Learning Center // JetBrains\\
-    URL:\@ \detokenize{https://www.jetbrains.com/clion/learning-center/} (дата обращения: 08.10.2019)
-
-\bibitem{moderncpp}
-    AnthonyCalandra/modern-cpp-features // GitHub. \\ URL:\@ \detokenize{https://github.com/AnthonyCalandra/modern-cpp-features} (дата обращения: 08.10.2019)
-
-\bibitem{latex}
-    \LaTeX{} // Wikibooks.\\URL:\@ \detokenize{https://en.wikibooks.org/wiki/LaTeX} (дата обращения: 08.10.2019)
-
-\end{thebibliography}
+\printbibliography{}
 \addcontentsline{toc}{section}{Список литературы}
 
 \section*{Приложения}

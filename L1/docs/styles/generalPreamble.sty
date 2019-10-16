@@ -39,7 +39,6 @@
 % ====== Captions ======
 \usepackage{caption}
 \usepackage{subcaption}
-\captionsetup[figure]{name=Рисунок, labelsep=endash, parskip=0pt}
 
 \captionsetup[table]{
     labelsep=period,
@@ -52,7 +51,7 @@
 \captionsetup[figure]{
     name=Рисунок,
     justification=centering,
-    labelsep=period,
+    labelsep=endash,
     parskip=6pt,
     skip=3pt
 }
@@ -80,7 +79,6 @@
 \usepackage{pgfplotstable}
 \pgfplotsset{compat=newest}
 \usepgfplotslibrary{dateplot}
-
 
 % ====== My commands ======
 \newcommand{\addonsubheader}[1]{{\center{\bfseries \vspace{-0.5cm} #1} \\ \vspace{15pt}}}

@@ -14,7 +14,7 @@
 #include "pentagramText.h"
 
 
-std::string outPath(pavel::Shape& shape) {
+std::string outPath(Shape& shape) {
     std::ostringstream os;
     os.precision(3);
     os << "[ ";
@@ -25,10 +25,10 @@ std::string outPath(pavel::Shape& shape) {
     return os.str();
 }
 
-void doStuffWithShape(pavel::Shape & shape, std::ostream& os) {
+void doStuffWithShape(Shape & shape, std::ostream& os) {
     os << BLUE << "Starting transformation sequence" << RESET << std::endl;
     os << offset(1) << "Path" << outPath(shape) << std::endl;
-    auto move = pavel::Point {10, 20};
+    auto move = Point {10, 20};
     os << offset(1) << GREEN << "Moving to " << move << RESET << std::endl;
     shape.move(move);
     os << offset(1) << "Path" << outPath(shape) << std::endl;
@@ -61,11 +61,11 @@ int main(int argc, char *argv[])
 {
     std::cout.precision(3);
     box("          Korytov Pavel, 6304. LR 1, Part 1           ", std::cout, RED);
-    std::vector<std::shared_ptr<pavel::Shape>> arr {
-            std::make_shared<pavel::Pentagram>(pavel::Pentagram(pavel::Point {0, 0}, 10)),
-            std::make_shared<pavel::AtanSegment>(pavel::AtanSegment(pavel::Point{1, 1}, pavel::Point{10, 10}, 5)),
-            std::make_shared<pavel::Text>(pavel::Text("Hello, world", pavel::Point {-5, -5}, pavel::Point {5, 5})),
-            std::make_shared<pavel::PentagramText>(pavel::PentagramText("Text with pentagram", pavel::Point{1, 2}, 10))
+    std::vector<std::shared_ptr<Shape>> arr {
+            std::make_shared<Pentagram>(Pentagram(Point {0, 0}, 10)),
+            std::make_shared<AtanSegment>(AtanSegment(Point{1, 1}, Point{10, 10}, 5)),
+            std::make_shared<Text>(Text("Hello, world", Point {-5, -5}, Point {5, 5})),
+            std::make_shared<PentagramText>(PentagramText("Text with pentagram", Point{1, 2}, 10))
     };
     for (auto &ptr: arr) {
         std::ostringstream s;
