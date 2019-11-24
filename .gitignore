@@ -320,4 +320,7 @@ TSWLatexianTemp*
 *cmake-build-debug*
 
 # build
-**/build/*
+**/build*/*
+
+# Qt
+*.pro.user
