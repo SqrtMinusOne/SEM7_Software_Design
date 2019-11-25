@@ -14,9 +14,20 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     // Shape interface
-    QString toString() override;
+    [[nodiscard]] QString toString() override;
+
+    [[nodiscard]] uint getPrecision() const;
+    void setPrecision(const uint &value);
+
+    [[nodiscard]] double getWidth() const;
+    void setWidth(double value);
+
+    [[nodiscard]] double getHeight() const;
+    void setHeight(double value);
 
 protected:
+    // Shape interface
+    QColor primaryColor(const QStyleOptionGraphicsItem *option) override;
     void print(std::ostream &o) const override;
 
 private:
@@ -30,9 +41,6 @@ private:
     double atanStop = 1;
     double lineWidth = 1;
 
-    // Shape interface
-protected:
-    QColor primaryColor(const QStyleOptionGraphicsItem *option) override;
 };
 
 #endif // ATANSEGMENT_H

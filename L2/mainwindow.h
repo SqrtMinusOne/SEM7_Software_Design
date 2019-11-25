@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "graphwidget.h"
+#include "hashMap.h"
 
 namespace Ui {
 class MainWindow;
@@ -11,12 +12,17 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+
     ~MainWindow();
 
+private slots:
+    void on_addFigureButton_clicked();
+    void on_itemAdded(QGraphicsItem* item);
+
 private:
+    HashMap<QString, QGraphicsItem*> hashMap;
     Ui::MainWindow *ui;
     GraphWidget* widget;
 };

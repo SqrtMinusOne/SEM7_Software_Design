@@ -6,7 +6,7 @@
 class Text : virtual public Shape
 {
 public:
-    explicit Text(QString string, double width = 40);
+    explicit Text(QString string = "", double width = 40);
 
     // QGraphicsItem interface
     virtual QRectF boundingRect() const override;
@@ -15,6 +15,15 @@ public:
 
     // Shape interface
     virtual QString toString() override;
+
+    [[nodiscard]] QString getString() const;
+    void setString(const QString &value);
+
+    [[nodiscard]] double getWidth() const;
+    void setWidth(double value);
+
+    [[nodiscard]] double getHeight() const;
+    void setHeight(double value);
 
 protected:
     virtual void print(std::ostream &o) const override;

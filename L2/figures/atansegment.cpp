@@ -26,6 +26,7 @@ QPainterPath AtanSegment::shape() const
 
 void AtanSegment::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Shape::paint(painter, option, widget);
     auto points = getPath();
     QBrush brush(primaryColor(option));
     QPen pen(brush, lineWidth);
@@ -60,6 +61,36 @@ QVector<Point> AtanSegment::getPath() const
         x += delta;
     }
     return path;
+}
+
+double AtanSegment::getHeight() const
+{
+    return height;
+}
+
+void AtanSegment::setHeight(double value)
+{
+    height = value;
+}
+
+double AtanSegment::getWidth() const
+{
+    return width;
+}
+
+void AtanSegment::setWidth(double value)
+{
+    width = value;
+}
+
+uint AtanSegment::getPrecision() const
+{
+    return precision;
+}
+
+void AtanSegment::setPrecision(const uint &value)
+{
+    precision = value;
 }
 
 QColor AtanSegment::primaryColor(const QStyleOptionGraphicsItem *option)

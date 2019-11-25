@@ -107,25 +107,25 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="classComboBox">
        <item>
         <property name="text">
-         <string>pentagram</string>
+         <string>Pentagram</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>atanSegment</string>
+         <string>AtanSegment</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>text</string>
+         <string>Text</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>pentagramText</string>
+         <string>PentagramText</string>
         </property>
        </item>
       </widget>
@@ -138,10 +138,10 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="hashCodeEdit"/>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="addFigureButton">
        <property name="text">
         <string>Добавить</string>
        </property>

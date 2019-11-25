@@ -7,7 +7,7 @@
 class PentagramText: virtual public Pentagram, virtual public Text
 {
 public:
-    PentagramText(QString string, double size = 100);
+    PentagramText(QString string="", double size = 100);
 
     // QGraphicsItem interface
 public:

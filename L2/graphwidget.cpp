@@ -21,19 +21,6 @@ GraphWidget::GraphWidget(QWidget* parent)
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(0.8), qreal(0.8));
     setMinimumSize(400, 400);
-
-    // Pentagram* p = new Pentagram(100);
-    // p->setPos(-50, -50);
-    // scene->addItem(p);
-
-    // AtanSegment* a = new AtanSegment();
-    // scene->addItem(a);
-
-    // Text* t = new Text("Hello");
-    // scene->addItem(t);
-
-    PentagramText* pt = new PentagramText("Hello");
-    scene->addItem(pt);
 }
 
 void GraphWidget::keyPressEvent(QKeyEvent *event)

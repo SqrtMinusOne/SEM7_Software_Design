@@ -20,7 +20,10 @@ QPainterPath PentagramText::shape() const
 void PentagramText::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Pentagram::paint(painter, option, widget);
+    auto drawHashKey = getDrawHashKey();
+    setDrawHashKey(false);
     Text::paint(painter, option, widget);
+    setDrawHashKey(drawHashKey);
 }
 
 QString PentagramText::toString()

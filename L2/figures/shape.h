@@ -14,11 +14,19 @@ public:
     // QGraphicsItem interface
     virtual QRectF boundingRect() const override = 0;
     virtual QPainterPath shape() const override = 0;
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override = 0;
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     friend std::ostream &operator<<(std::ostream &os, const Shape &shape);
 
     virtual QString toString() = 0;
+    [[nodiscard]] QString getHashKey() const;
+    void setHashKey(const QString &value);
+
+    [[nodiscard]] bool getDrawHashKey() const;
+    void setDrawHashKey(bool value);
+
+    void setColor(const QColor &value);
+
 protected:
     virtual QColor primaryColor(const QStyleOptionGraphicsItem* option);
     virtual void print(std::ostream &o) const = 0;
@@ -27,6 +35,11 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
     static QPolygonF getPolygon(QVector<Point> points);
+
+private:
+    QColor color = Qt::yellow;
+    QString hashKey;
+    bool drawHashKey = true;
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Shape &shape) {

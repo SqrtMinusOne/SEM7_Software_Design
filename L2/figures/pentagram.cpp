@@ -26,6 +26,7 @@ QPainterPath Pentagram::shape() const
 
 void Pentagram::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Shape::paint(painter, option, widget);
     painter->setPen(QPen(Qt::black));
     painter->setBrush(primaryColor(option));
     auto path = getPath();
@@ -41,6 +42,16 @@ QString Pentagram::toString()
 void Pentagram::print(std::ostream &o) const
 {
     o << "Pentagram";
+}
+
+double Pentagram::getSize() const
+{
+    return size;
+}
+
+void Pentagram::setSize(double value)
+{
+    size = value;
 }
 
 QVector<Point> Pentagram::getPoints() const

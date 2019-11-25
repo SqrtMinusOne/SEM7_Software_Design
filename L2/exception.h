@@ -1,5 +1,7 @@
 # pragma once
 
+#include <QTextStream>
+
 class Exception {
 public:
     friend std::ostream &operator<<(std::ostream &os, const Exception &ex);
@@ -35,7 +37,10 @@ public:
 
 protected:
     void print(std::ostream &o) const override {
-        o << "ElementAlreadyExistsException {Key: " << key << ", Value:" << value << "}";
+        QByteArray outBytes;
+        QTextStream outStream(&outBytes);
+        outStream << "ElementAlreadyExistsException {Key: " << key << ", Value:" << value << "}";
+        o << QString(outBytes).toStdString();
     }
 
 private:

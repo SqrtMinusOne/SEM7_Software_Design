@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++17
 
 SOURCES += \
+    adddialog.cpp \
     figures/atansegment.cpp \
     figures/pentagramtext.cpp \
     figures/text.cpp \
@@ -36,9 +37,11 @@ SOURCES += \
     point.cpp
 
 HEADERS += \
+    adddialog.h \
     figures/atansegment.h \
     figures/pentagramtext.h \
     figures/text.h \
+    hashMap.h \
         mainwindow.h \
     graphwidget.h \
     figures/shape.h \
@@ -46,6 +49,7 @@ HEADERS += \
     point.h
 
 FORMS += \
+        adddialog.ui \
         mainwindow.ui
 
 # Default rules for deployment.
