@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <math.h>
+#include "figures/pentagram.h"
 
 GraphWidget::GraphWidget(QWidget* parent)
     :QGraphicsView (parent)
@@ -17,6 +18,9 @@ GraphWidget::GraphWidget(QWidget* parent)
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(0.8), qreal(0.8));
     setMinimumSize(400, 400);
+
+    QPentagram* p = new QPentagram(100);
+    scene->addItem(p);
 }
 
 void GraphWidget::keyPressEvent(QKeyEvent *event)

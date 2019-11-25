@@ -27,11 +27,17 @@ CONFIG += c++17
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    graphwidget.cpp
+    graphwidget.cpp \
+    figures/shape.cpp \
+    figures/pentagram.cpp \
+    point.cpp
 
 HEADERS += \
         mainwindow.h \
-    graphwidget.h
+    graphwidget.h \
+    figures/shape.h \
+    figures/pentagram.h \
+    point.h
 
 FORMS += \
         mainwindow.ui
