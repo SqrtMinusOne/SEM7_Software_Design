@@ -4,48 +4,46 @@
 #include <QStyleOption>
 #include <QPolygonF>
 
-#define _USE_MATH_DEFINES
-
-QPentagram::QPentagram(double size)
+Pentagram::Pentagram(double size)
     :size(size)
 {
 
 }
 
-QRectF QPentagram::boundingRect() const
+QRectF Pentagram::boundingRect() const
 {
     qreal adjust = 2;
     return QRectF(-size - adjust, - size - adjust,
                   size * 2 + adjust, size * 2 + adjust);
 }
 
-QPainterPath QPentagram::shape() const
+QPainterPath Pentagram::shape() const
 {
     QPainterPath path;
     path.addPolygon(getPolygon(getPoints()));
     return path;
 }
 
-void QPentagram::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void Pentagram::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->setPen(QPen(Qt::black));
-    painter->setBrush(backgroundColor(option));
+    painter->setBrush(primaryColor(option));
     auto path = getPath();
     auto polygon = getPolygon(path);
     painter->drawPolygon(polygon, Qt::WindingFill);
 }
 
-QString QPentagram::toString()
+QString Pentagram::toString()
 {
     return QString("Hello");
 }
 
-void QPentagram::print(std::ostream &o) const
+void Pentagram::print(std::ostream &o) const
 {
     o << "Pentagram";
 }
 
-QVector<Point> QPentagram::getPoints() const
+QVector<Point> Pentagram::getPoints() const
 {
     auto points = QVector<Point>();
     for (int i = 0; i < 5; i++) {
@@ -56,7 +54,7 @@ QVector<Point> QPentagram::getPoints() const
     return points;
 }
 
-QVector<Point> QPentagram::getPath() const
+QVector<Point> Pentagram::getPath() const
 {
     auto points = getPoints();
     return QVector<Point> {

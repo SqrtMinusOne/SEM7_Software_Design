@@ -10,7 +10,7 @@ Shape::Shape()
     setZValue(-1);
 }
 
-QColor Shape::backgroundColor(const QStyleOptionGraphicsItem *option)
+QColor Shape::primaryColor(const QStyleOptionGraphicsItem *option)
 {
     QColor col = QColor(Qt::yellow);
     if (option->state & QStyle::State_Sunken) {

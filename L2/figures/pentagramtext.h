@@ -1,29 +1,25 @@
-#ifndef PENTAGRAM_H
-#define PENTAGRAM_H
+#ifndef PENTAGRAMTEXT_H
+#define PENTAGRAMTEXT_H
 
-#include <QVector>
-#include "figures/shape.h"
-#include "point.h"
+#include "figures/pentagram.h"
+#include "figures/text.h"
 
-class Pentagram : virtual public Shape
+class PentagramText: virtual public Pentagram, virtual public Text
 {
 public:
-    Pentagram(double size = 100);
+    PentagramText(QString string, double size = 100);
 
-public:
     // QGraphicsItem interface
+public:
     virtual QRectF boundingRect() const override;
     virtual QPainterPath shape() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    // Shape interface
     virtual QString toString() override;
+
 protected:
     virtual void print(std::ostream &o) const override;
-    double size;
-
-private:
-    [[nodiscard]] QVector<Point> getPath() const;
-    [[nodiscard]] QVector<Point> getPoints() const;
 };
 
-#endif // PENTAGRAM_H
+#endif // PENTAGRAMTEXT_H

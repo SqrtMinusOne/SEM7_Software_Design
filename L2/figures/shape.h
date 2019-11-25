@@ -5,7 +5,7 @@
 #include "point.h"
 #include <QGraphicsItem>
 
-class Shape : public QGraphicsItem
+class Shape : virtual public QGraphicsItem
 {
 public:
     explicit Shape();
@@ -20,7 +20,7 @@ public:
 
     virtual QString toString() = 0;
 protected:
-    virtual QColor backgroundColor(const QStyleOptionGraphicsItem* option);
+    virtual QColor primaryColor(const QStyleOptionGraphicsItem* option);
     virtual void print(std::ostream &o) const = 0;
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

@@ -4,6 +4,9 @@
 #include <iostream>
 #include <math.h>
 #include "figures/pentagram.h"
+#include "figures/atansegment.h"
+#include "figures/text.h"
+#include "figures/pentagramtext.h"
 
 GraphWidget::GraphWidget(QWidget* parent)
     :QGraphicsView (parent)
@@ -19,8 +22,18 @@ GraphWidget::GraphWidget(QWidget* parent)
     scale(qreal(0.8), qreal(0.8));
     setMinimumSize(400, 400);
 
-    QPentagram* p = new QPentagram(100);
-    scene->addItem(p);
+    // Pentagram* p = new Pentagram(100);
+    // p->setPos(-50, -50);
+    // scene->addItem(p);
+
+    // AtanSegment* a = new AtanSegment();
+    // scene->addItem(a);
+
+    // Text* t = new Text("Hello");
+    // scene->addItem(t);
+
+    PentagramText* pt = new PentagramText("Hello");
+    scene->addItem(pt);
 }
 
 void GraphWidget::keyPressEvent(QKeyEvent *event)
@@ -55,7 +68,7 @@ void GraphWidget::zoomOut()
 
 void GraphWidget::drawBackground(QPainter *painter, const QRectF &rect)
 {
-    Q_UNUSED(rect);
+    Q_UNUSED(rect)
 
     // Shadow
     QRectF sceneRect = this->sceneRect();

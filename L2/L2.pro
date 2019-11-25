@@ -25,6 +25,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++17
 
 SOURCES += \
+    figures/atansegment.cpp \
+    figures/pentagramtext.cpp \
+    figures/text.cpp \
         main.cpp \
         mainwindow.cpp \
     graphwidget.cpp \
@@ -33,6 +36,9 @@ SOURCES += \
     point.cpp
 
 HEADERS += \
+    figures/atansegment.h \
+    figures/pentagramtext.h \
+    figures/text.h \
         mainwindow.h \
     graphwidget.h \
     figures/shape.h \
