@@ -65,11 +65,16 @@
         <number>0</number>
        </property>
        <property name="columnCount">
-        <number>3</number>
+        <number>4</number>
        </property>
        <column>
         <property name="text">
          <string>Хэш</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Класс</string>
         </property>
        </column>
        <column>

@@ -38,6 +38,7 @@ SOURCES += \
 
 HEADERS += \
     adddialog.h \
+    exception.h \
     figures/atansegment.h \
     figures/pentagramtext.h \
     figures/text.h \

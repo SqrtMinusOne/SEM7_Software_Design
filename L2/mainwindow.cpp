@@ -3,6 +3,9 @@
 #include "adddialog.h"
 #include "figures/shape.h"
 
+#include <QTableWidgetItem>
+#include <QMessageBox>
+
 uint hashFunc(QString string) {
     return qHash(string) % SIZE;
 }
@@ -30,8 +33,38 @@ void MainWindow::on_addFigureButton_clicked()
 void MainWindow::on_itemAdded(QGraphicsItem *item)
 {
     Shape* shape = dynamic_cast<Shape*>(item);
-    shape->setHashKey(ui->hashCodeEdit->text());
+    auto hash = ui->hashCodeEdit->text();
+    shape->setHashKey(hash);
     widget->scene()->addItem(shape);
-    hashMap.create(ui->hashCodeEdit->text(), item);
+    hashMap.create(hash, item);
     item->update();
+
+    auto newRow = ui->tableWidget->rowCount();
+    ui->tableWidget->insertRow(newRow);
+    ui->tableWidget->setItem(newRow, 0, new QTableWidgetItem(hash));
+    ui->tableWidget->setItem(newRow, 1, new QTableWidgetItem(ui->classComboBox->currentText()));
+    ui->tableWidget->setItem(newRow, 2, new QTableWidgetItem(shape->toString()));
+
+    QWidget* controlWidget = new QWidget();
+    QHBoxLayout* layout = new QHBoxLayout();
+    QPushButton* deleteButton = new QPushButton("Del");
+    QPushButton* editButton = new QPushButton("Edit");
+    layout->addWidget(deleteButton);
+    layout->addWidget(editButton);
+    layout->setAlignment(Qt::AlignCenter);
+    layout->setContentsMargins(0, 0, 0, 0);
+    controlWidget->setLayout(layout);
+    ui->tableWidget->setCellWidget(newRow, 3, controlWidget);
+
+    connect(deleteButton, &QPushButton::clicked, this, [=](){ this->on_itemDelete(newRow); });
+}
+
+void MainWindow::on_itemDelete(int row)
+{
+    auto hash = ui->tableWidget->takeItem(row, 0)->text();
+    QGraphicsItem* item = hashMap.at(hash);
+
+    widget->scene()->removeItem(item);
+    hashMap.remove(hash);
+    ui->tableWidget->removeRow(row);
 }

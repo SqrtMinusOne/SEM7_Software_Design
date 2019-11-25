@@ -20,6 +20,7 @@ public:
 private slots:
     void on_addFigureButton_clicked();
     void on_itemAdded(QGraphicsItem* item);
+    void on_itemDelete(int row);
 
 private:
     HashMap<QString, QGraphicsItem*> hashMap;
