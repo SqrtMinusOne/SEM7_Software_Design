@@ -1,0 +1,97 @@
+\documentclass[a4paper, 14pt]{extarticle}
+\usepackage{./styles/generalPreamble}
+\usepackage{./styles/longReportFormat}
+\usepackage{./styles/russianLocale}
+\usepackage{./styles/nonFancyTOC}
+\usepackage{./styles/sourceCode}
+\usepackage{./styles/gostBibTex}
+
+\bibliography{bibliography}
+
+\newcommand{\Addon}[3]{%
+    \section*{#1}
+    \addonsubheader{#2}
+    {\fontsize{12pt}{1.5pt}\selectfont
+    \lstinputlisting[language=C++, style=num]{#3}
+    }
+}
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    {\bfseries
+        \uppercase{
+            Минобрнауки России \\
+            Санкт-Петербургский государственный \\
+            Электротехнический университет \\
+            \enquote{ЛЭТИ} им. В.И.Ульянова (Ленина)\\
+        }
+        Кафедра МО ЭВМ
+
+        \vspace{\fill}
+        \uppercase{Отчёт} \\
+        по лабораторной работе №2 \\
+        по дисциплине \enquote{Конструирование ПО} \\
+        Тема: Разработка приложений
+    }
+
+    \vspace{\fill}
+    \begin{tabularx}{0.8\textwidth}{l X c r}
+        Студент гр. 6304 & & \underline{\hspace{3cm}} & Корытов П.В.\\
+        Преподаватель & & \underline{\hspace{3cm}} & Спицин А.В.
+    \end{tabularx}
+
+    \vspace{1cm}
+    Санкт-Петербург \\
+    \the\year{}
+\end{titlepage}
+
+\tableofcontents{}
+\newpage
+
+\section{Постановка задачи}
+\subsection{Цель работы}
+\lipsum[1] %TODO
+
+\subsection{Формулировка задания}
+\lipsum[1] %TODO
+
+\subsection{Индивидуальное задание}
+\begin{itemize}
+    \item Фигуры --- пентаграмма, кусок арктангенса, текст, текст в пентаграмме.
+    \item Контейнер --- хэш-таблица на базе списка.
+\end{itemize}
+
+\section{Ход работы}
+\lipsum[1] %TODO
+
+\section{Выводы}
+\lipsum[1] %TODO
+
+\printbibliography{}
+\addcontentsline{toc}{section}{Список литературы}
+
+\phantomsection{}\addcontentsline{toc}{section}{Приложения}
+\Addon{Приложение А}{Исходный код main.cpp}{../src/main.cpp}
+\Addon{Приложение Б}{Исходный код mainwindow.h}{../src/mainwindow.h}
+\Addon{Приложение В}{Исходный код mainwindow.cpp}{../src/mainwindow.cpp}
+\Addon{Приложение Г}{Исходный код hashMap.h}{../src/hashMap.h}
+\Addon{Приложение Е}{Исходный код exception.h}{../src/exception.h}
+\Addon{Приложение Ж}{Исходный код figures/shape.h}{../src/figures/shape.h}
+\Addon{Приложение З}{Исходный код figures/shape.cpp}{../src/figures/shape.cpp}
+\Addon{Приложение И}{Исходный код figures/atansegment.h}{../src/figures/atansegment.h}
+\Addon{Приложение К}{Исходный код figures/atansegment.cpp}{../src/figures/atansegment.cpp}
+\Addon{Приложение Л}{Исходный код figures/pentagram.h}{../src/figures/pentagram.h}
+\Addon{Приложение М}{Исходный код figures/pentagram.cpp}{../src/figures/pentagram.cpp}
+\Addon{Приложение Н}{Исходный код figures/text.h}{../src/figures/text.h}
+\Addon{Приложение О}{Исходный код figures/text.cpp}{../src/figures/text.cpp}
+\Addon{Приложение П}{Исходный код figures/pentagramtext.h}{../src/figures/pentagramtext.h}
+\Addon{Приложение Р}{Исходный код figures/pentagramtext.cpp}{../src/figures/pentagramtext.cpp}
+\Addon{Приложение С}{Исходный код graphwidget.h}{../src/graphwidget.h}
+\Addon{Приложение Т}{Исходный код graphwidget.cpp}{../src/graphwidget.cpp}
+\Addon{Приложение У}{Исходный код adddialog.h}{../src/adddialog.h}
+\Addon{Приложение Ф}{Исходный код adddialog.cpp}{../src/adddialog.cpp}
+\Addon{Приложение Х}{Исходный код point.h}{../src/point.h}
+\Addon{Приложение Ц}{Исходный код point.cpp}{../src/point.cpp}
+
+\end{document}
