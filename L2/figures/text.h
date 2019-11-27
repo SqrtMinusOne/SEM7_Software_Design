@@ -13,9 +13,6 @@ public:
     virtual QPainterPath shape() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    // Shape interface
-    virtual QString toString() override;
-
     [[nodiscard]] QString getString() const;
     void setString(const QString &value);
 
@@ -25,6 +22,7 @@ public:
     [[nodiscard]] double getHeight() const;
     void setHeight(double value);
 
+    virtual QJsonObject toJSON() override;
 protected:
     virtual void print(std::ostream &o) const override;
 

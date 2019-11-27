@@ -14,7 +14,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     // Shape interface
-    [[nodiscard]] QString toString() override;
+    QJsonObject toJSON() override;
 
     [[nodiscard]] uint getPrecision() const;
     void setPrecision(const uint &value);
@@ -40,7 +40,6 @@ private:
     double atanStart = -1;
     double atanStop = 1;
     double lineWidth = 1;
-
 };
 
 #endif // ATANSEGMENT_H

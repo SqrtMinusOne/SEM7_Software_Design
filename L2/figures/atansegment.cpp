@@ -1,4 +1,5 @@
 #include "atansegment.h"
+#include <QJsonObject>
 #include <QtMath>
 #include <QStyleOptionGraphicsItem>
 #include <cmath>
@@ -38,9 +39,19 @@ void AtanSegment::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     // painter->drawRect(boundingRect());
 }
 
-QString AtanSegment::toString()
+QJsonObject AtanSegment::toJSON()
 {
-    return QString("Hello1"); // TODO
+    QJsonObject object {
+        {"className", "AtanSegment"},
+        {"params", QJsonObject {
+                {"precision", (int)precision},
+                {"width", width},
+                {"height", height}
+            }
+        }
+    };
+    mergeJsons(object, Shape::toJSON());
+    return object;
 }
 
 void AtanSegment::print(std::ostream &o) const

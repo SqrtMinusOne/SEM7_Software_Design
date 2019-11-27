@@ -4,6 +4,7 @@
 #include "graphwidget.h"
 #include "point.h"
 #include <QGraphicsItem>
+#include <QJsonObject>
 
 class Shape : virtual public QGraphicsItem
 {
@@ -18,7 +19,8 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Shape &shape);
 
-    virtual QString toString() = 0;
+    [[nodiscard]] virtual QString toString();
+    [[nodiscard]] virtual QJsonObject toJSON();
     [[nodiscard]] QString getHashKey() const;
     void setHashKey(const QString &value);
 
@@ -26,6 +28,7 @@ public:
     void setDrawHashKey(bool value);
 
     void setColor(const QColor &value);
+    QColor getColor() const;
 
 protected:
     virtual QColor primaryColor(const QStyleOptionGraphicsItem* option);
@@ -35,6 +38,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
     static QPolygonF getPolygon(QVector<Point> points);
+    static void mergeJsons(QJsonObject& doc, const QJsonObject& second);
 
 private:
     QColor color = Qt::yellow;

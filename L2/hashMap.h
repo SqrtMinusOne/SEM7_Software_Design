@@ -119,6 +119,20 @@ public:
                            const HashMapIterator<Key, Value>& it2) {
         return !it1.compareFunc(it1.currentNode->getKey(), it2.currentNode->getKey());
     }
+
+    friend bool operator<(const HashMapIterator<Key, Value>& it1,
+                          const HashMapIterator<Key, Value>& it2) {
+        return it1.currentValue < it2.currentValue;
+    }
+
+    friend bool operator<=(const HashMapIterator<Key, Value>& it1,
+                           const HashMapIterator<Key, Value>& it2) {
+        if (it1.currentNode == nullptr && it2.currentNode == nullptr) {
+            return false;
+        }
+        return it1.currentValue <= it2.currentValue;
+    }
+
 private:
     void getNext() {
         if (currentNode != nullptr) {
@@ -127,6 +141,9 @@ private:
         while (currentNode == nullptr && (currentValue < SIZE - 1)) {
             currentValue++;
             currentNode = hashMap.table[currentValue];
+        }
+        if (currentNode == nullptr && currentValue >= SIZE - 1) {
+            currentValue++;
         }
     }
 
@@ -150,6 +167,11 @@ public:
     }
 
     ~HashMap() {
+        clear();
+        delete[] table;
+    }
+
+    void clear() {
         for (unsigned int i = 0; i < SIZE; i++) {
             HashNode<Key, Value> *entry = table[i];
             while (entry != nullptr) {
@@ -159,6 +181,7 @@ public:
             }
         }
         delete[] table;
+        table = new HashNode<Key, Value>* [SIZE]();
     }
 
     const Value& at(const Key& key) {
@@ -243,6 +266,7 @@ public:
             }
             return HashMapIterator<Key, Value>(*this, node);
         }
+        return HashMapIterator<Key, Value>(*this);
     }
 
 private:

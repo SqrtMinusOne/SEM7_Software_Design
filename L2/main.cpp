@@ -29,8 +29,9 @@ private:
 int main(int argc, char *argv[])
 {
     MyApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    a.setMessageBoxWidget(&w);
+    MainWindow* w = new MainWindow();
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    a.setMessageBoxWidget(w);
     return a.exec();
 }

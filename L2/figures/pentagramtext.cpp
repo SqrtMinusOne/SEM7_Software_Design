@@ -1,5 +1,5 @@
 #include "pentagramtext.h"
-
+#include <QJsonObject>
 
 PentagramText::PentagramText(QString string, double size)
     :Pentagram(size), Text(string, size / 2)
@@ -26,9 +26,17 @@ void PentagramText::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     setDrawHashKey(drawHashKey);
 }
 
-QString PentagramText::toString()
+QJsonObject PentagramText::toJSON()
 {
-    return QString("Hello3"); // TODO
+    QJsonObject params {};
+    mergeJsons(params, Pentagram::toJSON()["params"].toObject());
+    mergeJsons(params, Text::toJSON()["params"].toObject());
+    QJsonObject object {
+        {"className", "PentagramText"},
+        {"params", params}
+    };
+    mergeJsons(object, Shape::toJSON());
+    return object;
 }
 
 void PentagramText::print(std::ostream &o) const

@@ -1,6 +1,8 @@
 #include "shape.h"
 
 #include <QStyleOptionGraphicsItem>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 Shape::Shape()
 {
@@ -21,6 +23,23 @@ void Shape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
         painter->drawText(rect, Qt::AlignRight | Qt::AlignBottom, hashKey);
     }
+}
+
+QString Shape::toString()
+{
+    QJsonDocument doc(toJSON());
+    return QString(doc.toJson(QJsonDocument::Compact));
+}
+
+QJsonObject Shape::toJSON()
+{
+    return QJsonObject {
+        {"scenePos", QJsonObject {
+                {"x", scenePos().x()},
+                {"y", scenePos().y()},
+            }
+        }
+    };
 }
 
 QColor Shape::primaryColor(const QStyleOptionGraphicsItem *option)
@@ -51,6 +70,18 @@ QPolygonF Shape::getPolygon(QVector<Point> points)
         polygon << point;
     }
     return polygon;
+}
+
+void Shape::mergeJsons(QJsonObject &doc, const QJsonObject &second)
+{
+    for (auto key: second.keys()) {
+        doc[key] = second[key];
+    }
+}
+
+QColor Shape::getColor() const
+{
+    return color;
 }
 
 void Shape::setColor(const QColor &value)

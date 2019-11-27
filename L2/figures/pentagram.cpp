@@ -1,5 +1,6 @@
 #include "pentagram.h"
 #include <cmath>
+#include <QJsonObject>
 #include <QPainter>
 #include <QStyleOption>
 #include <QPolygonF>
@@ -34,11 +35,6 @@ void Pentagram::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawPolygon(polygon, Qt::WindingFill);
 }
 
-QString Pentagram::toString()
-{
-    return QString("Hello");
-}
-
 void Pentagram::print(std::ostream &o) const
 {
     o << "Pentagram";
@@ -52,6 +48,19 @@ double Pentagram::getSize() const
 void Pentagram::setSize(double value)
 {
     size = value;
+}
+
+QJsonObject Pentagram::toJSON()
+{
+    QJsonObject object {
+        {"className", "Pentagram"},
+        {"params", QJsonObject {
+                {"size", size}
+            }
+        }
+    };
+    mergeJsons(object, Shape::toJSON());
+    return object;
 }
 
 QVector<Point> Pentagram::getPoints() const

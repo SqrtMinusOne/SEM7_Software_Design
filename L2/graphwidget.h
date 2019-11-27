@@ -8,6 +8,8 @@ class GraphWidget : public QGraphicsView
     Q_OBJECT
 public:
     GraphWidget(QWidget* parent = nullptr);
+    [[nodiscard]] QPointF centerPos();
+    void setSceneSize();
 
 public slots:
     void zoomIn();
@@ -18,6 +20,9 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
     void drawBackground(QPainter *painter, const QRectF &rect) override;
     void scaleView(qreal scaleFactor);
+
+    // QWidget interface
+    void resizeEvent(QResizeEvent *event) override;
 };
 
 #endif // GRAPHWIDGET_H

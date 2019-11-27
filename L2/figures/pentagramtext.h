@@ -15,9 +15,7 @@ public:
     virtual QPainterPath shape() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    // Shape interface
-    virtual QString toString() override;
-
+    virtual QJsonObject toJSON() override;
 protected:
     virtual void print(std::ostream &o) const override;
 };

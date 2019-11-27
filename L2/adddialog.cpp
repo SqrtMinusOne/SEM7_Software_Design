@@ -25,7 +25,7 @@ AddDialog::~AddDialog()
 
 void AddDialog::on_selectColorButton_clicked()
 {
-    color = QColorDialog::getColor(Qt::yellow, this, "Выберите цвет");
+    color = QColorDialog::getColor(color, this, "Выберите цвет");
 }
 
 void AddDialog::addControls()
@@ -40,35 +40,42 @@ void AddDialog::addControls()
         addPentagramControls();
         addTextControls();
     }
+    if (item != nullptr) {
+        Shape* shape = dynamic_cast<Shape*>(item);
+        color = shape->getColor();
+        ui->showHashCodeCheckBox->setChecked(shape->getDrawHashKey());
+    }
     auto splitter = new QSplitter(Qt::Vertical);
     ui->controlsLayout->addWidget(splitter);
 }
 
 void AddDialog::addPentagramControls()
 {
-    auto spinBox = new QSpinBox();
-    spinBox->setMinimum(1);
+    auto spinBox = new QDoubleSpinBox();
+    spinBox->setRange(1, 1000);
     spinBox->setObjectName("sizeSpinBox");
-    spinBox->setValue(100);
     ui->controlsLayout->addWidget(new QLabel("Размер"));
     ui->controlsLayout->addWidget(spinBox);
+    if (item == nullptr){
+        spinBox->setValue(100);
+    } else {
+        Pentagram* p = dynamic_cast<Pentagram*>(item);
+        spinBox->setValue(p->getSize());
+    }
 }
 
 void AddDialog::addAtanSegmentControls()
 {
     auto spinBox = new QSpinBox();
-    spinBox->setMinimum(1);
-    spinBox->setValue(100);
+    spinBox->setRange(1, 1000);
     spinBox->setObjectName("precisionSpinBox");
 
     auto widthSpinBox = new QDoubleSpinBox();
-    widthSpinBox->setMinimum(1);
-    widthSpinBox->setValue(100);
+    widthSpinBox->setRange(1, 1000);
     widthSpinBox->setObjectName("widthSpinBox");
 
     auto heigthSpinBox = new QDoubleSpinBox();
-    heigthSpinBox->setMinimum(1);
-    heigthSpinBox->setValue(100);
+    widthSpinBox->setRange(1, 1000);
     heigthSpinBox->setObjectName("heightSpinBox");
 
     ui->controlsLayout->addWidget(new QLabel("Точность"));
@@ -77,6 +84,17 @@ void AddDialog::addAtanSegmentControls()
     ui->controlsLayout->addWidget(heigthSpinBox);
     ui->controlsLayout->addWidget(new QLabel("Ширина"));
     ui->controlsLayout->addWidget(widthSpinBox);
+
+    if (item == nullptr) {
+        spinBox->setValue(100);
+        widthSpinBox->setValue(100);
+        heigthSpinBox->setValue(100);
+    } else {
+        AtanSegment* a = dynamic_cast<AtanSegment*>(item);
+        spinBox->setValue(a->getPrecision());
+        widthSpinBox->setValue(a->getWidth());
+        heigthSpinBox->setValue(a->getHeight());
+    }
 
 }
 
@@ -87,12 +105,19 @@ void AddDialog::addTextControls()
 
     auto textWidth = new QDoubleSpinBox();
     textWidth->setObjectName("textWidthSpinBox");
-    textWidth->setValue(40);
+    textWidth->setRange(1, 1000);
 
     ui->controlsLayout->addWidget(new QLabel("Текст"));
     ui->controlsLayout->addWidget(textEdit);
     ui->controlsLayout->addWidget(new QLabel("Ширина текста"));
     ui->controlsLayout->addWidget(textWidth);
+    if (item == nullptr) {
+        textWidth->setValue(40);
+    } else {
+        Text* t = dynamic_cast<Text*>(item);
+        textWidth->setValue(t->getWidth());
+        textEdit->setText(t->getString());
+    }
 }
 
 QGraphicsItem *AddDialog::makeItem()
@@ -111,10 +136,11 @@ QGraphicsItem *AddDialog::makeItem()
 void AddDialog::setItemValues()
 {
     if (className == "Pentagram" || className == "PentagramText"){
-        auto size = ui->controlBox->findChild<QSpinBox*>("sizeSpinBox")->value();
+        auto size = ui->controlBox->findChild<QDoubleSpinBox*>("sizeSpinBox")->value();
         Pentagram* p = dynamic_cast<Pentagram*>(item);
         p->setSize(size);
-    } else if (className == "AtanSegment") {
+    }
+    if (className == "AtanSegment") {
         auto precision = ui->controlBox->findChild<QSpinBox*>("precisionSpinBox")->value();
         auto width = ui->controlBox->findChild<QDoubleSpinBox*>("widthSpinBox")->value();
         auto height = ui->controlBox->findChild<QDoubleSpinBox*>("heightSpinBox")->value();
@@ -122,14 +148,15 @@ void AddDialog::setItemValues()
         a->setPrecision(precision);
         a->setWidth(width);
         a->setHeight(height);
-    } else if (className == "Text" || className == "PentagramText") {
+    }
+    if (className == "Text" || className == "PentagramText") {
         auto width = ui->controlBox->findChild<QDoubleSpinBox*>("textWidthSpinBox")->value();
         auto text = ui->controlBox->findChild<QLineEdit*>("lineEdit")->text();
         Text* t = dynamic_cast<Text*>(item);
         t->setString(text);
         t->setWidth(width);
     }
-    Shape * s = dynamic_cast<Shape*>(item);
+    Shape* s = dynamic_cast<Shape*>(item);
     s->setColor(color);
     s->setDrawHashKey(ui->showHashCodeCheckBox->isChecked());
 }
