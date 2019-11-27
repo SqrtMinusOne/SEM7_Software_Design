@@ -75,7 +75,7 @@ void AddDialog::addAtanSegmentControls()
     widthSpinBox->setObjectName("widthSpinBox");
 
     auto heigthSpinBox = new QDoubleSpinBox();
-    widthSpinBox->setRange(1, 1000);
+    heigthSpinBox->setRange(1, 1000);
     heigthSpinBox->setObjectName("heightSpinBox");
 
     ui->controlsLayout->addWidget(new QLabel("Точность"));

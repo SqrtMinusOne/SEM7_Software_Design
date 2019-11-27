@@ -1,0 +1,47 @@
+{
+    "123": {
+        "className": "Pentagram",
+        "params": {
+            "size": 67
+        },
+        "scenePos": {
+            "x": -121.25,
+            "y": -93.75
+        }
+    },
+    "345": {
+        "className": "AtanSegment",
+        "params": {
+            "height": 203,
+            "precision": 100,
+            "width": 100
+        },
+        "scenePos": {
+            "x": -116.25,
+            "y": 85
+        }
+    },
+    "Hello, hello": {
+        "className": "Text",
+        "params": {
+            "string": "Hello, hello",
+            "width": 176
+        },
+        "scenePos": {
+            "x": -4.972010294170364,
+            "y": 25.306874964876506
+        }
+    },
+    "ff": {
+        "className": "PentagramText",
+        "params": {
+            "size": 100,
+            "string": "Text",
+            "width": 40
+        },
+        "scenePos": {
+            "x": 80.82771161861068,
+            "y": -89.80856846512297
+        }
+    }
+}

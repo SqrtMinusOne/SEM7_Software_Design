@@ -51,10 +51,16 @@
 
 \section{Постановка задачи}
 \subsection{Цель работы}
-\lipsum[1] %TODO
+Создание приложения с графическим интерфейсом пользователя. Изучение паттерна MVC.\@
 
 \subsection{Формулировка задания}
-\lipsum[1] %TODO
+\begin{itemize}
+    \item Визуализировать графические фигуры из ЛР1
+    \item Визуализировать контейнер из ЛР1
+    \item Использовать при визуализации паттерн MVC (Model-View-Controller)
+    \item Реализовать сериализацию и десериализацию графических фигур
+    \item Реализовать многооконность
+\end{itemize}
 
 \subsection{Индивидуальное задание}
 \begin{itemize}
@@ -63,10 +69,80 @@
 \end{itemize}
 
 \section{Ход работы}
-\lipsum[1] %TODO
+Использованное ПО и технологии:
+\begin{itemize}
+    \item \textbf{Qt Framework}~\cite{shlee}~\cite{qt5};
+    \item \textbf{Qt Creator} --- IDE для C/C++~\cite{qtcreator};
+    \item \XeLaTeX{}, \textbf{neovim} --- сборка и написание отчёта~\cite{latex}.
+\end{itemize}
+
+\subsection{Реализация MVC}
+\subsubsection{Отображение содержимого контейнера}
+Структура MVC, использованная для отображения содержимого контейнера:
+\begin{itemize}
+    \item Model --- контейнер из ЛР1 \texttt{HashMap} (код  в приложении Г). Реализует логику хэш-таблицы на основе списка
+    \item View --- \texttt{QTableWidget}. Отображает параметры фигур, хранящихся в хэш-таблице
+    \item Controller --- \texttt{MainWindow}. Изменяет хэш-таблицу соответственно командам View. Код в приложениях Б, В.
+\end{itemize}
+
+В работе тип ключа --- \texttt{QString}, тип значения --- \texttt{QGraphicsItem*}. Хэш \texttt{QString} считается с помощью \texttt{qHash}.
+
+Отображение контейнера представлено на рис.~\ref{img:qtable}:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/IMG_001.jpg}
+    \caption{Отображение контейнера}%
+    \label{img:qtable}
+\end{figure}
+
+Добавление элемента в контейнер показано на рис.~\ref{img:addfigure}:
+\begin{figure}[h]
+    \centering
+    \includegraphics{img/IMG_002.jpg}
+    \caption{Добавление элемента в контейнер}%
+    \label{img:addfigure}
+\end{figure}
+\FloatBarrier{}
+
+Настройка параметров добавляемой фигуры представлена на рис.~\ref{img:figparams}:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/IMG_004.jpg}
+    \caption{Настройка параметров фигуры}%
+    \label{img:figparams}
+\end{figure}
+
+Код диалога, представленного на рис.~\ref{img:figparams} --- в приложениях У, Ф.
+
+\subsection{Отображение графических фигур}
+Иерархия графических фигур ЛР1 модифицирована --- класс \texttt{Shape} унаследован от \texttt{QGraphicsItem}, а \texttt{Point} --- от \texttt{QPointF}. Избыточные методы --- уже реализованные в классах Qt --- убраны.
+
+Методы рисования переопределены в наследниках. Коды фигур в приложениях Ж--Р. 
+
+\texttt{QGraphicsItem} настроен, чтобы поддерживать drag\&drop.
+
+Для отображения унаследован класс \texttt{QGraphicsWidget} (код в приложениях С--Т). В нём установлен экземпляр \texttt{QGraphicsScene}, который композирует QGraphicsItem'ы и управляет их отображением.
+
+\texttt{MainWindow} сихронизирует состояние контейнера и сцены, там же находятся фабрики фигур.
+
+Пример отображения фигур представлен на~\ref{img:figures}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/IMG_005.jpg}
+    \caption{Отображение фигур}%
+    \label{img:figures}
+\end{figure}
+
+\subsection{Сериализация}
+Для сериализации и десериализации выбран формат JSON в реализации \texttt{QJson}.
+
+У фигур определен метод \texttt{toJSON}, конвертирующий их в JSON-объекты. При сохранении в ходе итерации по контейнеру вызывается этот метод, общий результат сохраняется в JSON-файл. Пример такого файлы представлен в приложении Ч.
+
+При десериализации содержимое контейнера и сцены восстанавливается по файлу.
 
 \section{Выводы}
-\lipsum[1] %TODO
+Произведено создание графического приложения с использованием фреймворка Qt. Изучена реализация паттерна MVC в Qt, использование компонентов отображения и работы с файлами.
 
 \printbibliography{}
 \addcontentsline{toc}{section}{Список литературы}
@@ -93,5 +169,6 @@
 \Addon{Приложение Ф}{Исходный код adddialog.cpp}{../src/adddialog.cpp}
 \Addon{Приложение Х}{Исходный код point.h}{../src/point.h}
 \Addon{Приложение Ц}{Исходный код point.cpp}{../src/point.cpp}
+\Addon{Приложение Ч}{Пример сериалиазации}{./example.json}
 
 \end{document}
