@@ -27,6 +27,12 @@ bottom=2cm
     \titlespacing*{\section}{0pt}{12pt}{3pt}
 }
 
+\newcommand{\AddonSection}[2]{%
+    \section*{#1}
+    \addcontentsline{toc}{section}{#1. #2}
+    \addonsubheader{#2}
+}
+
 \newcommand{\addonsubheader}[1]{{\center{\bfseries #1} \\ \vspace{6pt}}}
 
 % ====== Document sectioning ======

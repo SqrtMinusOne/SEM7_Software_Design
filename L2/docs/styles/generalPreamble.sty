@@ -15,15 +15,27 @@
 \usepackage{csvsimple} % Load CSV
 
 % ====== References ======
+\usepackage{environ}
+\usepackage{xcolor}
 \usepackage{hyperref} % Links
 \hypersetup{
     colorlinks,
     citecolor=black,
     filecolor=black,
     linkcolor=black,
-    urlcolor=black
+    urlcolor=black,
 }
 
+\NewEnviron{underlineURL}{%
+    {%
+        \hypersetup{
+            colorlinks=false,
+            urlbordercolor=black,
+            pdfborderstyle={/S/U/W 1}
+        }
+        \BODY{}
+    }
+}
 
 % ====== Captions ======
 \usepackage{caption}
@@ -89,7 +101,6 @@
     \textit{#1}
 }
 
-\usepackage{environ}
 \NewEnviron{rotateandfit}{%
     \begin{center}
         \rotatebox{90}{

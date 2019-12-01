@@ -8,11 +8,9 @@
 
 \bibliography{bibliography}
 
-\newcommand{\Addon}[3]{%
-    \section*{#1}
-    \addonsubheader{#2}
+\newcommand{\insertCPP}[1]{%
     {\fontsize{12pt}{1.5pt}\selectfont
-    \lstinputlisting[language=C++, style=num]{#3}
+    \lstinputlisting[language=C++, style=num, caption=Код #1]{#1}
     }
 }
 
@@ -80,9 +78,9 @@
 \subsubsection{Отображение содержимого контейнера}
 Структура MVC, использованная для отображения содержимого контейнера:
 \begin{itemize}
-    \item Model --- контейнер из ЛР1 \texttt{HashMap} (код  в приложении Г). Реализует логику хэш-таблицы на основе списка
+    \item Model --- контейнер из ЛР1 \texttt{HashMap} (код  в приложении Б). Реализует логику хэш-таблицы на основе списка
     \item View --- \texttt{QTableWidget}. Отображает параметры фигур, хранящихся в хэш-таблице
-    \item Controller --- \texttt{MainWindow}. Изменяет хэш-таблицу соответственно командам View. Код в приложениях Б, В.
+    \item Controller --- \texttt{MainWindow}. Изменяет хэш-таблицу соответственно командам View. Код в приложении В.
 \end{itemize}
 
 В работе тип ключа --- \texttt{QString}, тип значения --- \texttt{QGraphicsItem*}. Хэш \texttt{QString} считается с помощью \texttt{qHash}.
@@ -112,16 +110,16 @@
     \label{img:figparams}
 \end{figure}
 
-Код диалога, представленного на рис.~\ref{img:figparams} --- в приложениях У, Ф.
+Код диалога, представленного на рис.~\ref{img:figparams} --- в приложении В.
 
 \subsection{Отображение графических фигур}
 Иерархия графических фигур ЛР1 модифицирована --- класс \texttt{Shape} унаследован от \texttt{QGraphicsItem}, а \texttt{Point} --- от \texttt{QPointF}. Избыточные методы --- уже реализованные в классах Qt --- убраны.
 
-Методы рисования переопределены в наследниках. Коды фигур в приложениях Ж--Р. 
+Методы рисования переопределены в наследниках. Коды фигур в приложении А. 
 
 \texttt{QGraphicsItem} настроен, чтобы поддерживать drag\&drop.
 
-Для отображения унаследован класс \texttt{QGraphicsWidget} (код в приложениях С--Т). В нём установлен экземпляр \texttt{QGraphicsScene}, который композирует QGraphicsItem'ы и управляет их отображением.
+Для отображения унаследован класс \texttt{QGraphicsWidget} (код в приложении В). В последнем установлен экземпляр \texttt{QGraphicsScene}, который композирует и управляет отображением QGraphicsItem'ом.
 
 \texttt{MainWindow} сихронизирует состояние контейнера и сцены, там же находятся фабрики фигур.
 
@@ -137,38 +135,45 @@
 \subsection{Сериализация}
 Для сериализации и десериализации выбран формат JSON в реализации \texttt{QJson}.
 
-У фигур определен метод \texttt{toJSON}, конвертирующий их в JSON-объекты. При сохранении в ходе итерации по контейнеру вызывается этот метод, общий результат сохраняется в JSON-файл. Пример такого файлы представлен в приложении Ч.
+У фигур определен метод \texttt{toJSON}, конвертирующий экземляр класса в JSON-объект. При сохранении в ходе итерации по контейнеру вызывается этот метод, общий результат сохраняется в JSON-файл. Пример такого файлы представлен в приложении Г.
 
 При десериализации содержимое контейнера и сцены восстанавливается по файлу.
 
 \section{Выводы}
 Произведено создание графического приложения с использованием фреймворка Qt. Изучена реализация паттерна MVC в Qt, использование компонентов отображения и работы с файлами.
 
-\printbibliography{}
+\begin{underlineURL}
+    \urlstyle{rm}
+    \printbibliography{}
+\end{underlineURL}
 \addcontentsline{toc}{section}{Список литературы}
 
-\phantomsection{}\addcontentsline{toc}{section}{Приложения}
-\Addon{Приложение А}{Исходный код main.cpp}{../src/main.cpp}
-\Addon{Приложение Б}{Исходный код mainwindow.h}{../src/mainwindow.h}
-\Addon{Приложение В}{Исходный код mainwindow.cpp}{../src/mainwindow.cpp}
-\Addon{Приложение Г}{Исходный код hashMap.h}{../src/hashMap.h}
-\Addon{Приложение Е}{Исходный код exception.h}{../src/exception.h}
-\Addon{Приложение Ж}{Исходный код figures/shape.h}{../src/figures/shape.h}
-\Addon{Приложение З}{Исходный код figures/shape.cpp}{../src/figures/shape.cpp}
-\Addon{Приложение И}{Исходный код figures/atansegment.h}{../src/figures/atansegment.h}
-\Addon{Приложение К}{Исходный код figures/atansegment.cpp}{../src/figures/atansegment.cpp}
-\Addon{Приложение Л}{Исходный код figures/pentagram.h}{../src/figures/pentagram.h}
-\Addon{Приложение М}{Исходный код figures/pentagram.cpp}{../src/figures/pentagram.cpp}
-\Addon{Приложение Н}{Исходный код figures/text.h}{../src/figures/text.h}
-\Addon{Приложение О}{Исходный код figures/text.cpp}{../src/figures/text.cpp}
-\Addon{Приложение П}{Исходный код figures/pentagramtext.h}{../src/figures/pentagramtext.h}
-\Addon{Приложение Р}{Исходный код figures/pentagramtext.cpp}{../src/figures/pentagramtext.cpp}
-\Addon{Приложение С}{Исходный код graphwidget.h}{../src/graphwidget.h}
-\Addon{Приложение Т}{Исходный код graphwidget.cpp}{../src/graphwidget.cpp}
-\Addon{Приложение У}{Исходный код adddialog.h}{../src/adddialog.h}
-\Addon{Приложение Ф}{Исходный код adddialog.cpp}{../src/adddialog.cpp}
-\Addon{Приложение Х}{Исходный код point.h}{../src/point.h}
-\Addon{Приложение Ц}{Исходный код point.cpp}{../src/point.cpp}
-\Addon{Приложение Ч}{Пример сериалиазации}{./example.json}
+\AddonSection{Приложение А}{Код классов иерархии фигур}
+\insertCPP{../src/point.h}
+\insertCPP{../src/point.cpp}
+\insertCPP{../src/figures/shape.h}
+\insertCPP{../src/figures/shape.cpp}
+\insertCPP{../src/figures/atansegment.h}
+\insertCPP{../src/figures/atansegment.cpp}
+\insertCPP{../src/figures/pentagram.h}
+\insertCPP{../src/figures/pentagram.cpp}
+\insertCPP{../src/figures/text.h}
+\insertCPP{../src/figures/text.cpp}
+\insertCPP{../src/figures/pentagramtext.h}
+\insertCPP{../src/figures/pentagramtext.cpp}
+
+\AddonSection{Приложение Б}{Код контейнера}
+\insertCPP{../src/hashMap.h}
+\insertCPP{../src/exception.h}
+
+\AddonSection{Приложение В}{Код классов графического интерфейса}
+\insertCPP{../src/main.cpp}
+\insertCPP{../src/mainwindow.h}
+\insertCPP{../src/mainwindow.cpp}
+\insertCPP{../src/adddialog.h}
+\insertCPP{../src/adddialog.cpp}
+
+\AddonSection{Приложение Г}{Пример сериализации}
+\insertCPP{./example.json}
 
 \end{document}
