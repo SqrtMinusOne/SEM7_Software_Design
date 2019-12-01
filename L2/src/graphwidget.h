@@ -20,9 +20,6 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
     void drawBackground(QPainter *painter, const QRectF &rect) override;
     void scaleView(qreal scaleFactor);
-
-    // QWidget interface
-    void resizeEvent(QResizeEvent *event) override;
 };
 
 #endif // GRAPHWIDGET_H
