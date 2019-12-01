@@ -1,0 +1,52 @@
+\ProvidesPackage{reportFormat}
+
+% ====== Text spacing ======
+
+\usepackage{setspace} % String spacing
+\onehalfspacing{}
+
+\usepackage{indentfirst}
+\setlength\parindent{1.25cm}
+
+\usepackage{enumitem}
+\setlist{nosep, topsep=-10pt} % Remove sep-s beetween list elements
+\setlist[enumerate]{label*=\arabic*.}
+\setlist[enumerate,1]{after=\vspace{\baselineskip}}
+\setlist[itemize,1]{after=\vspace{\baselineskip}}
+
+% ====== Page layout ======
+\usepackage[ % Margins
+left=3cm,
+right=1cm,
+top=2cm,
+bottom=2cm	
+]{geometry}
+
+% ====== My command ======
+\newcommand{\StartAddons}{
+    \titlespacing*{\section}{0pt}{12pt}{3pt}
+}
+
+\newcommand{\AddonSection}[2]{%
+    \section*{#1}
+    \addcontentsline{toc}{section}{#1. #2}
+    \addonsubheader{#2}
+}
+
+\newcommand{\addonsubheader}[1]{{\center{\bfseries #1} \\ \vspace{6pt}}}
+
+% ====== Document sectioning ======
+\usepackage{titlesec}
+\titleformat{\section}{\filcenter\bfseries}{\thesection. }{0pt}{\MakeUppercase}
+\titleformat*{\subsection}{\bfseries}
+\titleformat*{\subsubsection}{\bfseries}
+\titleformat*{\paragraph}{\bfseries}
+\titleformat*{\subparagraph}{\bfseries\itshape} % chktex 6
+
+
+\titlespacing*{\subsection}{0pt}{24pt}{3pt}
+\titlespacing*{\subsubsection}{0pt}{15pt}{0pt}
+\titlespacing*{\paragraph}{0pt}{15pt}{6pt}
+\titlespacing*{\subparagraph}{0pt}{15pt}{3pt}
+
+\newcommand\sectionbreak{\clearpage} % Each section on a new page
