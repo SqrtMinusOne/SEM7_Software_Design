@@ -36,6 +36,7 @@ protected:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
     static QPolygonF getPolygon(QVector<Point> points);
     static void mergeJsons(QJsonObject& doc, const QJsonObject& second);
@@ -44,6 +45,7 @@ private:
     QColor color = Qt::yellow;
     QString hashKey;
     bool drawHashKey = true;
+
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Shape &shape) {

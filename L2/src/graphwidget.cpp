@@ -13,7 +13,7 @@ GraphWidget::GraphWidget(QWidget* parent)
 {
     QGraphicsScene *scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    scene->setSceneRect(-200, -200, 400, 400);
+    scene->setSceneRect(-400, -300, 800, 600);
     setScene(scene);
     setCacheMode(CacheBackground);
     setViewportUpdateMode(BoundingRectViewportUpdate);
@@ -21,8 +21,6 @@ GraphWidget::GraphWidget(QWidget* parent)
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(0.8), qreal(0.8));
     setMinimumSize(400, 400);
-
-    setSceneSize();
 }
 
 QPointF GraphWidget::centerPos()
@@ -55,12 +53,6 @@ void GraphWidget::scaleView(qreal scaleFactor)
         return;
 
     scale(scaleFactor, scaleFactor);
-}
-
-void GraphWidget::resizeEvent(QResizeEvent *event)
-{
-    setSceneSize();
-    QGraphicsView::resizeEvent(event);
 }
 
 void GraphWidget::zoomIn()

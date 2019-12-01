@@ -63,6 +63,22 @@ void Shape::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
+void Shape::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mouseMoveEvent(event);
+    auto rect = scene()->sceneRect();
+    if (x() < rect.x() - boundingRect().x()) {
+        setPos(rect.x() - boundingRect().x(), y());
+    } else if (x() > rect.width() + rect.x() - boundingRect().width() - boundingRect().x()) {
+        setPos(rect.width() + rect.x() - boundingRect().width() - boundingRect().x(), y());
+    }
+    if (y() < rect.y() - boundingRect().y()) {
+        setPos(x(), rect.y() - boundingRect().y());
+    } else if (y() > rect.height() + rect.y() - boundingRect().height() - boundingRect().y()) {
+        setPos(x(), rect.height() + rect.y() - boundingRect().height() - boundingRect().y());
+    }
+}
+
 QPolygonF Shape::getPolygon(QVector<Point> points)
 {
     auto polygon = QPolygonF();
